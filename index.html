@@ -7,39 +7,28 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar"><div class="container">
-<a href="/" class="wordmark"><span class="pre">your</span><span class="num">48<span class="dot">.</span></span></a>
-<nav>
-<a href="#directory">Directory</a><a href="#services">Services</a><a href="#community">Community</a><a href="#actions">Quick Actions</a>
-<a href="https://mailchi.mp/the48thward/newsletter-signup" class="cta" target="_blank">Subscribe</a>
-</nav>
-</div></div>
-
+<div id="nav-slot"></div>
 <div class="container">
-<!-- HERO -->
 <section class="hero">
 <div class="hero-grid">
 <div>
 <div class="eyebrow">— Edgewater · Uptown · Andersonville</div>
-<h1>Your block. Your <em>ward.</em><br>Your say.</h1>
-<p class="hero-deck">The civic home base for citizens who want to know their representatives, access government resources, and participate in democracy beyond just voting. Starting hyper-local — one ward at a time.</p>
-<div class="search-bar"><input type="text" id="globalSearch" placeholder="Search directory, services, resources…"><button onclick="filterAll()">Search</button></div>
+<h1>Your block.<br>Your <em>ward.</em><br>Your say.</h1>
+<p class="hero-deck">The civic home base for citizens who want to know their representatives, access government resources, and participate in democracy beyond just voting.</p>
+<div class="search-bar"><input type="text" id="globalSearch" placeholder="Search directory, services, resources…" onkeydown="if(event.key==='Enter')window.location='directory.html'"><button onclick="window.location='directory.html'">Explore →</button></div>
 <div class="hero-stats">
 <div class="stat"><div class="val">85+</div><div class="lbl">Resources</div></div>
 <div class="stat"><div class="val">18</div><div class="lbl">Buildings</div></div>
-<div class="stat"><div class="val">6</div><div class="lbl">FB Groups</div></div>
 <div class="stat"><div class="val">15+</div><div class="lbl">City Depts</div></div>
 </div>
 </div>
 <div class="hero-badge">
-<svg width="240" height="256" viewBox="0 0 320 340" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="220" viewBox="0 0 320 340" xmlns="http://www.w3.org/2000/svg">
 <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E7D9A"/><stop offset="100%" stop-color="#0E4D64"/></linearGradient></defs>
 <rect x="40" y="18" width="240" height="304" rx="120" fill="url(#lg)"/>
 <rect x="52" y="30" width="216" height="280" rx="108" fill="#FBF8F2"/>
-<g fill="#B8472E" transform="translate(160,78)"><g transform="translate(-58,0) scale(.85)"><polygon points="0,-14 3.5,-4.5 14,-4.5 6,2 9,12 0,6 -9,12 -6,2 -14,-4.5 -3.5,-4.5"/></g><g transform="translate(0,-8)"><polygon points="0,-14 3.5,-4.5 14,-4.5 6,2 9,12 0,6 -9,12 -6,2 -14,-4.5 -3.5,-4.5"/></g><g transform="translate(58,0) scale(.85)"><polygon points="0,-14 3.5,-4.5 14,-4.5 6,2 9,12 0,6 -9,12 -6,2 -14,-4.5 -3.5,-4.5"/></g></g>
 <text x="160" y="135" text-anchor="middle" font-family="Fraunces,serif" font-style="italic" font-weight="400" font-size="22" fill="#0E4D64">your</text>
 <text x="160" y="232" text-anchor="middle" font-family="Fraunces,serif" font-weight="600" font-size="120" fill="#1A2228" letter-spacing="-4">48</text>
-<line x1="100" y1="252" x2="220" y2="252" stroke="#0E4D64" stroke-width="1" opacity=".35"/>
 <circle cx="160" cy="278" r="6" fill="#D9A441"/>
 <path d="M110,290 Q130,282 150,290 T190,290 T230,290" fill="none" stroke="#0E4D64" stroke-width="2.5" stroke-linecap="round"/>
 </svg>
@@ -47,186 +36,41 @@
 </div>
 </section>
 
-<!-- NEIGHBORHOODS -->
+<!-- NEIGHBORHOODS WITH PHOTOS -->
 <section class="section">
 <div class="section-label">The Three <span class="accent">— one ward, three flavors</span></div>
+<div class="section-title">Know your <em>neighborhoods.</em></div>
 <div class="nbh-grid">
-<div class="nbh-card"><div class="nbh-art" style="background:linear-gradient(180deg,#C9DCE4,#F4EFE6)">
-<svg width="100%" height="100%" viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice"><rect x="0" y="150" width="320" height="90" fill="#2E7D9A" opacity=".55"/><path d="M0 165Q40 161 80 165T160 165T240 165T320 165" stroke="#0E4D64" stroke-width="1.5" fill="none" opacity=".4"/><rect x="100" y="60" width="40" height="100" fill="#D9A441" opacity=".85"/><rect x="160" y="100" width="50" height="60" fill="#B8472E"/><polygon points="160,100 185,80 210,100" fill="#8B2F1F"/><circle cx="50" cy="60" r="14" fill="#D9A441" opacity=".85"/></svg>
-</div><div class="nbh-body"><div class="ward-tag">North · Lakefront</div><h3><em>Edgewater</em></h3><p>Brick courtyards, the Bryn Mawr Historic District, the lake at the end of every street. Old-school neighborhood pride and a deep bench of block clubs.</p></div></div>
-<div class="nbh-card"><div class="nbh-art" style="background:linear-gradient(180deg,#F4EFE6,#D9A441 110%)">
-<svg width="100%" height="100%" viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice"><rect x="60" y="80" width="200" height="80" fill="#1A2228"/><rect x="80" y="100" width="160" height="40" fill="#B8472E"/><circle cx="90" cy="110" r="3" fill="#FBF8F2"/><circle cx="110" cy="110" r="3" fill="#FBF8F2"/><circle cx="130" cy="110" r="3" fill="#FBF8F2"/><circle cx="150" cy="110" r="3" fill="#FBF8F2"/><circle cx="170" cy="110" r="3" fill="#FBF8F2"/><circle cx="190" cy="110" r="3" fill="#FBF8F2"/><circle cx="210" cy="110" r="3" fill="#FBF8F2"/><circle cx="230" cy="110" r="3" fill="#FBF8F2"/><rect x="155" y="40" width="10" height="40" fill="#1A2228"/><polygon points="160,30 150,50 170,50" fill="#D9A441"/></svg>
-</div><div class="nbh-body"><div class="ward-tag">Central · Entertainment</div><h3><em>Uptown</em></h3><p>Theaters, jazz halls, the Aragon, and the most diverse stretch of restaurants in the ward. Loud, layered, and never quite finished.</p></div></div>
-<div class="nbh-card"><div class="nbh-art" style="background:linear-gradient(180deg,#C9DCE4,#F4EFE6)">
-<svg width="100%" height="100%" viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice"><rect x="40" y="100" width="70" height="80" fill="#B8472E"/><rect x="110" y="90" width="80" height="90" fill="#0E4D64"/><rect x="190" y="110" width="60" height="70" fill="#D9A441"/><rect x="250" y="100" width="50" height="80" fill="#FBF8F2" stroke="#1A2228" stroke-width="1"/><rect x="55" y="125" width="40" height="40" fill="#FBF8F2" opacity=".7"/><rect x="125" y="115" width="50" height="50" fill="#FBF8F2" opacity=".7"/><circle cx="160" cy="60" r="10" fill="#8B2F1F"/></svg>
-</div><div class="nbh-body"><div class="ward-tag">West · Walkable</div><h3><em>Andersonville</em></h3><p>Clark Street, indie bookstores, the Swedish American Museum, the patio crowd at Hopleaf. A neighborhood where everyone knows the dog before the owner.</p></div></div>
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/edgewater.png')"></div><div class="nbh-body"><div class="ward-tag">North · Lakefront</div><h3><em>Edgewater</em></h3><p>Brick courtyards, the Bryn Mawr Historic District, the lake at the end of every street. Old-school neighborhood pride and a deep bench of block clubs.</p></div></div>
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/uptown.png')"></div><div class="nbh-body"><div class="ward-tag">Central · Entertainment</div><h3><em>Uptown</em></h3><p>Theaters, jazz halls, the Aragon, and the most diverse stretch of restaurants in the ward. Loud, layered, and never quite finished.</p></div></div>
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/andersonville.png')"></div><div class="nbh-body"><div class="ward-tag">West · Walkable</div><h3><em>Andersonville</em></h3><p>Clark Street, indie bookstores, the Swedish American Museum. A neighborhood where everyone knows the dog before the owner.</p></div></div>
 </div>
 </section>
 
-<!-- QUICK ACTIONS -->
-<section class="section" id="actions">
+<!-- QUICK ACTIONS PREVIEW -->
+<section class="section">
 <div class="section-label">Quick Actions <span class="accent">— get it done</span></div>
 <div class="section-title">City services at your <em>fingertips.</em></div>
-<div class="section-desc">One-click access to the most-used city services for ward residents.</div>
-<div id="actionGrid" class="action-grid"></div>
-</section>
-
-<!-- WARD OFFICE -->
-<section class="section" id="directory">
-<div class="section-label">Ward Office <span class="accent">— your team</span></div>
-<div class="section-title">The 48th Ward <em>Office</em></div>
-<div class="section-desc">1129 W Bryn Mawr Ave · Office: 773-784-5277 · info@the48thward.org</div>
-<div id="wardGrid" class="grid"></div>
-</section>
-
-<!-- SOCIAL & FB GROUPS -->
-<section class="section">
-<div class="section-label">Social & Facebook Groups <span class="accent">— the group chat</span></div>
-<div class="section-title">The lakefront's <em>group chat.</em></div>
-<div class="section-desc">Official pages and neighborhood Facebook groups for Edgewater, Uptown, and Andersonville.</div>
-<div id="socialGrid" class="grid grid-3"></div>
-</section>
-
-<!-- CITY SERVICES -->
-<section class="section" id="services">
-<div class="section-label">City Services <span class="accent">— Chicago departments</span></div>
-<div class="section-title">City <em>services</em> directory</div>
-<div class="section-desc">Every Chicago department and agency you might need, with direct phone numbers and links.</div>
-<div class="filters" id="serviceFilters">
-<button class="active" onclick="showTab('all')">All</button>
-<button onclick="showTab('dept')">Departments</button>
-<button onclick="showTab('agency')">Agencies</button>
-<button onclick="showTab('elected')">Elected Officials</button>
+<div class="action-grid">
+<a href="https://www.chicago.gov/city/en/depts/cdot/provdrs/street/svcs/report_a_pot_holeinstreet.html" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🛣️</div><div><div class="action-text">Report a Pothole</div><div class="action-sub">Via 311</div></div></a>
+<a href="https://www.chicago.gov/city/en/depts/streets/provdrs/graffiti_blasters/svcs/graffiti_removal.html" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🎨</div><div><div class="action-text">Report Graffiti</div><div class="action-sub">Via 311</div></div></a>
+<a href="https://www.chicago.gov/city/en/depts/streets/provdrs/rodent/svcs/garbage_cart_distribution.html" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🗑️</div><div><div class="action-text">Request Garbage Cart</div><div class="action-sub">Via 311</div></div></a>
+<a href="https://www.chicago.gov/city/en/depts/fin/provdrs/parking_and_redlightcitationadministration/svcs/pay_parking_and_red-lightticketson-line.html" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🎫</div><div><div class="action-text">Pay Parking Ticket</div><div class="action-sub">Chicago Finance</div></div></a>
+<a href="https://www.chicagoelections.com" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🗳️</div><div><div class="action-text">Voter Registration</div><div class="action-sub">Cook County</div></div></a>
+<a href="https://www.chicago.gov/city/en/depts/oem/provdrs/alertchicago/svcs/notifychicago.html" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft)">🔔</div><div><div class="action-text">NotifyChicago Alerts</div><div class="action-sub">Emergency mgmt</div></div></a>
 </div>
-<div id="serviceGrid" class="grid"></div>
+<div style="margin-top:24px"><a href="services.html" style="color:var(--lake);font-weight:600;text-decoration:none;font-size:14px">View all services & departments →</a></div>
 </section>
 
-<!-- COMMUNITY -->
-<section class="section" id="community">
-<div class="section-label">Community Resources <span class="accent">— local anchors</span></div>
-<div class="section-title">Know your <em>neighborhood.</em></div>
-<div id="communityGrid" class="grid"></div>
-</section>
-
-<!-- WARD PROGRAMS -->
-<section class="section">
-<div class="section-label">Ward Programs <span class="accent">— get involved</span></div>
-<div class="section-title">Ways to <em>participate.</em></div>
-<div id="programGrid" class="grid grid-3"></div>
-</section>
-
-<!-- BUILDINGS -->
-<section class="section">
-<div class="section-label">Sheridan Rd Buildings <span class="accent">— block by block</span></div>
-<div class="section-title">Buildings in the <em>ward.</em></div>
-<div class="section-desc">Residential buildings along Sheridan Road in the 48th Ward.</div>
-<div id="buildingGrid" class="action-grid"></div>
-</section>
+<!-- CTA BANNER -->
+<div class="cta-banner">
+<h2>Stay in the <em>loop.</em></h2>
+<p>Get the weekly newsletter from the 48th Ward office — meetings, events, construction updates, and ways to participate.</p>
+<a href="https://mailchi.mp/the48thward/newsletter-signup" target="_blank" class="btn">Subscribe to Newsletter ✉</a>
 </div>
-
-<!-- FOOTER -->
-<footer><div class="container">
-<div class="footer-grid">
-<div>
-<a href="/" class="wordmark" style="margin-bottom:16px;display:inline-flex"><span class="pre" style="color:var(--lake-soft)">your</span><span class="num" style="color:var(--foam)">48<span class="dot" style="color:var(--maple)">.</span></span></a>
-<p class="footer-desc">A civic home for Edgewater, Uptown, and Andersonville — built so neighbors find each other, find their alderman, and find what's happening on their block.</p>
 </div>
-<div><h4>Ward <em>Office</em></h4><ul>
-<li><a href="tel:7737845277">773-784-5277</a></li>
-<li><a href="mailto:info@the48thward.org">info@the48thward.org</a></li>
-<li><a href="https://the48thward.org">the48thward.org</a></li>
-<li><a href="https://mailchi.mp/the48thward/newsletter-signup">Newsletter</a></li>
-</ul></div>
-<div><h4>Quick <em>Links</em></h4><ul>
-<li><a href="#directory">Directory</a></li>
-<li><a href="#services">City Services</a></li>
-<li><a href="#community">Community</a></li>
-<li><a href="#actions">Quick Actions</a></li>
-</ul></div>
-<div><h4><em>Connect</em></h4><ul>
-<li><a href="https://www.facebook.com/the48thward/">Facebook</a></li>
-<li><a href="https://www.instagram.com/the48thward/">Instagram</a></li>
-<li><a href="https://www.chicagoelections.com">Voter Registration</a></li>
-<li><a href="https://icash.illinoistreasurer.gov">ICash</a></li>
-</ul></div>
-</div>
-<div class="footer-bottom">
-<div>Platform v1.0 · Spring 2026</div>
-<div>A project of <a href="#">Patrick Diamitani · Polsia</a></div>
-</div>
-</div></footer>
-
-<script src="data.js"></script>
-<script>
-const svgPhone=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
-const svgMail=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
-const svgLink=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
-const svgArrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
-const svgPin=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
-const svgBuilding=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></svg>`;
-
-function makeCard(item,tag,tagClass){
-  let meta='';
-  if(item.phone) meta+=`<div class="meta-row">${svgPhone}<span>${item.phone}</span></div>`;
-  if(item.email) meta+=`<div class="meta-row">${svgMail}<a href="mailto:${item.email}">${item.email}</a></div>`;
-  if(item.addr) meta+=`<div class="meta-row">${svgPin}<span>${item.addr}</span></div>`;
-  if(item.web) meta+=`<div class="meta-row">${svgLink}<a href="${item.web}" target="_blank">Website →</a></div>`;
-  if(item.url) meta+=`<div class="meta-row">${svgLink}<a href="${item.url}" target="_blank">Join →</a></div>`;
-  return `<div class="card" data-search="${(item.name+' '+(item.role||'')+' '+(item.desc||'')+' '+(item.platform||'')).toLowerCase()}">
-    <span class="tag ${tagClass}">${tag}</span>
-    ${item.web||item.url?`<a href="${item.web||item.url}" target="_blank" class="arrow">${svgArrow}</a>`:''}
-    <h3>${item.name}</h3>
-    ${item.role?`<div class="role">${item.role}</div>`:''}
-    ${item.platform?`<div class="role">${item.platform}</div>`:''}
-    ${item.desc?`<p>${item.desc}</p>`:''}
-    ${meta?`<div class="meta">${meta}</div>`:''}
-  </div>`;
-}
-
-// Render ward office
-document.getElementById('wardGrid').innerHTML=DATA.ward.map(d=>makeCard(d,'Ward Office','tag-ward')).join('');
-// Render social
-document.getElementById('socialGrid').innerHTML=DATA.social.map(d=>makeCard(d,'Social','tag-social')).join('');
-// Render community
-document.getElementById('communityGrid').innerHTML=DATA.community.map(d=>makeCard(d,'Community','tag-community')).join('');
-// Render programs
-document.getElementById('programGrid').innerHTML=DATA.programs.map(d=>makeCard(d,'Program','tag-program')).join('');
-
-// Render actions
-const actionIcons={road:'🛣️',spray:'🎨',trash:'🗑️',car:'🚗',light:'💡',ticket:'🎫',water:'💧',dog:'🐕',bell:'🔔',map:'🗺️',vote:'🗳️',money:'💰'};
-document.getElementById('actionGrid').innerHTML=DATA.actions.map(a=>`<a href="${a.url}" target="_blank" class="action-card">
-<div class="action-icon" style="background:var(--lake-soft);font-size:20px">${actionIcons[a.icon]||'📋'}</div>
-<div><div class="action-text">${a.name}</div><div class="action-sub">Via 311 / Chicago.gov</div></div></a>`).join('');
-
-// Render buildings
-document.getElementById('buildingGrid').innerHTML=DATA.buildings.map(b=>`<div class="action-card" style="cursor:default">
-<div class="action-icon" style="background:var(--foam)">${svgBuilding}</div>
-<div><div class="action-text">${b.split('—')[0].trim()}</div><div class="action-sub">${b.split('—')[1]||''}</div></div></div>`).join('');
-
-// Service tab filtering
-let currentTab='all';
-function renderServices(){
-  let items=[];
-  if(currentTab==='all'||currentTab==='dept') items=items.concat(DATA.city.map(d=>makeCard(d,'City Dept','tag-city')));
-  if(currentTab==='all'||currentTab==='agency') items=items.concat(DATA.agencies.map(d=>makeCard(d,'Agency','tag-city')));
-  if(currentTab==='all'||currentTab==='elected') items=items.concat(DATA.elected.map(d=>makeCard(d,'Official','tag-federal')));
-  document.getElementById('serviceGrid').innerHTML=items.join('');
-}
-function showTab(t){
-  currentTab=t;
-  document.querySelectorAll('#serviceFilters button').forEach(b=>{b.classList.remove('active');if(b.textContent.toLowerCase().includes(t==='all'?'all':t==='dept'?'department':t==='agency'?'agenc':'elected'))b.classList.add('active')});
-  document.querySelector(`#serviceFilters button[onclick="showTab('${t}')"]`).classList.add('active');
-  renderServices();
-}
-renderServices();
-
-// Global search
-function filterAll(){
-  const q=document.getElementById('globalSearch').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(c=>{c.style.display=!q||c.dataset.search.includes(q)?'':'none'});
-  document.querySelectorAll('.action-card').forEach(c=>{c.style.display=!q||c.textContent.toLowerCase().includes(q)?'':'none'});
-}
-document.getElementById('globalSearch').addEventListener('input',filterAll);
-</script>
+<div id="footer-slot"></div>
+<script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>initPage('index.html');</script>
 </body>
 </html>

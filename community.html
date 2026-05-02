@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Community — Your48</title>
+<meta name="description" content="Explore the neighborhoods of Chicago's 48th Ward — Edgewater, Uptown, and Andersonville. Community resources, local anchors, and ways to connect.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="nav-slot"></div>
+<div class="container">
+<section class="page-hero">
+<div class="eyebrow">— Community</div>
+<h1>Know your <em>neighborhood.</em></h1>
+<p>Three neighborhoods, one ward. Explore the places, people, and resources that make Edgewater, Uptown, and Andersonville home.</p>
+</section>
+
+<!-- NEIGHBORHOOD PHOTOS -->
+<section class="section">
+<div class="section-label">Neighborhoods <span class="accent">— one ward, three flavors</span></div>
+<div class="nbh-grid">
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/edgewater.png')"></div><div class="nbh-body"><div class="ward-tag">North · Lakefront</div><h3><em>Edgewater</em></h3><p>Brick courtyards, the Bryn Mawr Historic District, the lake at the end of every street. Old-school neighborhood pride and a deep bench of block clubs.</p></div></div>
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/uptown.png')"></div><div class="nbh-body"><div class="ward-tag">Central · Entertainment</div><h3><em>Uptown</em></h3><p>Theaters, jazz halls, the Aragon, and the most diverse stretch of restaurants in the ward. Loud, layered, and never quite finished.</p></div></div>
+<div class="nbh-card"><div class="nbh-img" style="background-image:url('img/andersonville.png')"></div><div class="nbh-body"><div class="ward-tag">West · Walkable</div><h3><em>Andersonville</em></h3><p>Clark Street, indie bookstores, the Swedish American Museum. A neighborhood where everyone knows the dog before the owner.</p></div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-label">Community Anchors <span class="accent">— local landmarks</span></div>
+<div class="section-title">Places that <em>matter.</em></div>
+<div id="communityGrid" class="grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Connect Online <span class="accent">— the digital ward</span></div>
+<div class="section-title">The lakefront's <em>group chat.</em></div>
+<div class="section-desc">Official pages and neighborhood Facebook groups for staying connected.</div>
+<div id="socialGrid" class="grid grid-3"></div>
+</section>
+
+<div class="cta-banner">
+<h2>Become a <em>Newsie.</em></h2>
+<p>Volunteer to distribute weekly flyers in your building, or join the Digital Newsies and share ward updates on social media.</p>
+<a href="mailto:audrey@the48thward.org?subject=Newsies Volunteer" class="btn">Volunteer Now →</a>
+</div>
+</div>
+<div id="footer-slot"></div>
+<script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>
+initPage('community.html');
+const svgPhone=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
+const svgLink=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const svgArrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
+const svgPin=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+function makeCard(item,tag,tagClass){
+  let meta='';
+  if(item.phone)meta+=`<div class="meta-row">${svgPhone}<span>${item.phone}</span></div>`;
+  if(item.addr)meta+=`<div class="meta-row">${svgPin}<span>${item.addr}</span></div>`;
+  if(item.web)meta+=`<div class="meta-row">${svgLink}<a href="${item.web}" target="_blank">Website →</a></div>`;
+  if(item.url)meta+=`<div class="meta-row">${svgLink}<a href="${item.url}" target="_blank">Join →</a></div>`;
+  return `<div class="card">${item.web||item.url?`<a href="${item.web||item.url}" target="_blank" class="arrow">${svgArrow}</a>`:''}<span class="tag ${tagClass}">${tag}</span><h3>${item.name}</h3>${item.platform?`<div class="role">${item.platform}</div>`:''}${item.desc?`<p>${item.desc}</p>`:''}${meta?`<div class="meta">${meta}</div>`:''}</div>`;
+}
+document.getElementById('communityGrid').innerHTML=DATA.community.map(d=>makeCard(d,'Community','tag-community')).join('');
+document.getElementById('socialGrid').innerHTML=DATA.social.map(d=>makeCard(d,'Social','tag-social')).join('');
+</script>
+</body>
+</html>

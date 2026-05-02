@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Directory — Your48</title>
+<meta name="description" content="Complete directory of 48th Ward officials, elected representatives, schools, businesses, and religious institutions.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="nav-slot"></div>
+<div class="container">
+<section class="page-hero">
+<div class="eyebrow">— Directory</div>
+<h1>Your ward <em>directory.</em></h1>
+<p>Every contact you need — from the ward office to your U.S. senators, neighborhood schools to local favorites on Clark Street.</p>
+<div class="search-bar" style="margin-top:24px"><input type="text" id="globalSearch" placeholder="Search the directory…" oninput="filterAll()"><button onclick="filterAll()">Search</button></div>
+</section>
+
+<section class="section">
+<div class="section-label">Ward Office <span class="accent">— your team</span></div>
+<div class="section-title">The 48th Ward <em>Office</em></div>
+<div class="section-desc">1129 W Bryn Mawr Ave · 773-784-5277 · info@the48thward.org</div>
+<div id="wardGrid" class="grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Elected Officials <span class="accent">— who represents you</span></div>
+<div class="section-title">Your <em>representatives.</em></div>
+<div id="electedGrid" class="grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Social & Facebook Groups <span class="accent">— the group chat</span></div>
+<div class="section-title">The lakefront's <em>group chat.</em></div>
+<div id="socialGrid" class="grid grid-3"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Schools <span class="accent">— education</span></div>
+<div class="section-title">Schools in the <em>ward.</em></div>
+<div id="schoolGrid" class="grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Religious Institutions <span class="accent">— houses of worship</span></div>
+<div class="section-title">Faith <em>communities.</em></div>
+<div id="religiousGrid" class="grid grid-3"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Local Businesses <span class="accent">— neighborhood favorites</span></div>
+<div class="section-title">Shop <em>local.</em></div>
+<div id="bizGrid" class="grid grid-3"></div>
+</section>
+
+<div class="cta-banner">
+<h2>Know a place we're <em>missing?</em></h2>
+<p>We're building the most complete directory of the 48th Ward. If your business, organization, or group should be listed, let us know.</p>
+<a href="mailto:info@the48thward.org?subject=Your48 Directory Suggestion" class="btn">Suggest a Listing →</a>
+</div>
+</div>
+<div id="footer-slot"></div>
+<script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>
+initPage('directory.html');
+const svgPhone=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
+const svgMail=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+const svgLink=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const svgArrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
+const svgPin=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+function makeCard(item,tag,tagClass){
+  let meta='';
+  if(item.phone)meta+=`<div class="meta-row">${svgPhone}<span>${item.phone}</span></div>`;
+  if(item.email)meta+=`<div class="meta-row">${svgMail}<a href="mailto:${item.email}">${item.email}</a></div>`;
+  if(item.addr)meta+=`<div class="meta-row">${svgPin}<span>${item.addr}</span></div>`;
+  if(item.web)meta+=`<div class="meta-row">${svgLink}<a href="${item.web}" target="_blank">Website →</a></div>`;
+  if(item.url)meta+=`<div class="meta-row">${svgLink}<a href="${item.url}" target="_blank">Join →</a></div>`;
+  return `<div class="card" data-search="${(item.name+' '+(item.role||'')+' '+(item.desc||'')+' '+(item.platform||'')+' '+(item.addr||'')).toLowerCase()}">
+    <span class="tag ${tagClass}">${tag}</span>
+    ${item.web||item.url?`<a href="${item.web||item.url}" target="_blank" class="arrow">${svgArrow}</a>`:''}
+    <h3>${item.name}</h3>
+    ${item.role?`<div class="role">${item.role}</div>`:''}
+    ${item.platform?`<div class="role">${item.platform}</div>`:''}
+    ${item.desc?`<p>${item.desc}</p>`:''}
+    ${meta?`<div class="meta">${meta}</div>`:''}
+  </div>`;
+}
+document.getElementById('wardGrid').innerHTML=DATA.ward.map(d=>makeCard(d,'Ward Office','tag-ward')).join('');
+document.getElementById('electedGrid').innerHTML=DATA.elected.map(d=>makeCard(d,'Official','tag-federal')).join('');
+document.getElementById('socialGrid').innerHTML=DATA.social.map(d=>makeCard(d,'Social','tag-social')).join('');
+document.getElementById('schoolGrid').innerHTML=DATA.schools.map(d=>makeCard(d,'School','tag-community')).join('');
+document.getElementById('religiousGrid').innerHTML=DATA.religious.map(d=>makeCard(d,'Worship','tag-state')).join('');
+document.getElementById('bizGrid').innerHTML=DATA.businesses.map(d=>makeCard(d,'Business','tag-program')).join('');
+function filterAll(){const q=document.getElementById('globalSearch').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{c.style.display=!q||c.dataset.search.includes(q)?'':'none'});}
+</script>
+</body>
+</html>

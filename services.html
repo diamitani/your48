@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>City Services — Your48</title>
+<meta name="description" content="Chicago city departments, agencies, and quick-action links for 48th Ward residents.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="nav-slot"></div>
+<div class="container">
+<section class="page-hero">
+<div class="eyebrow">— City Services</div>
+<h1>City services at your <em>fingertips.</em></h1>
+<p>Every Chicago department and agency you might need, with direct phone numbers and one-click actions.</p>
+</section>
+
+<section class="section">
+<div class="section-label">Quick Actions <span class="accent">— get it done</span></div>
+<div class="section-title">One-click <em>services.</em></div>
+<div id="actionGrid" class="action-grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">City Departments & Agencies <span class="accent">— full list</span></div>
+<div class="section-title">Chicago <em>departments.</em></div>
+<div class="filters" id="svcFilters">
+<button class="active" onclick="showTab('all',this)">All</button>
+<button onclick="showTab('dept',this)">Departments</button>
+<button onclick="showTab('agency',this)">Agencies</button>
+</div>
+<div id="serviceGrid" class="grid"></div>
+</section>
+
+<section class="section">
+<div class="section-label">Ward Programs <span class="accent">— get involved</span></div>
+<div class="section-title">Ways to <em>participate.</em></div>
+<div id="programGrid" class="grid grid-3"></div>
+</section>
+
+<div class="cta-banner">
+<h2>Need something <em>else?</em></h2>
+<p>Can't find what you need? Call 311 for any non-emergency city service, or contact the ward office directly.</p>
+<a href="tel:7737845277" class="btn">Call the Ward Office →</a>
+</div>
+</div>
+<div id="footer-slot"></div>
+<script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>
+initPage('services.html');
+const svgPhone=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
+const svgLink=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const svgArrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
+function makeCard(item,tag,tagClass){
+  let meta='';
+  if(item.phone)meta+=`<div class="meta-row">${svgPhone}<span>${item.phone}</span></div>`;
+  if(item.web)meta+=`<div class="meta-row">${svgLink}<a href="${item.web}" target="_blank">Website →</a></div>`;
+  return `<div class="card">${item.web?`<a href="${item.web}" target="_blank" class="arrow">${svgArrow}</a>`:''}<span class="tag ${tagClass}">${tag}</span><h3>${item.name}</h3>${item.desc?`<p>${item.desc}</p>`:''}${meta?`<div class="meta">${meta}</div>`:''}</div>`;
+}
+document.getElementById('actionGrid').innerHTML=DATA.actions.map(a=>`<a href="${a.url}" target="_blank" class="action-card"><div class="action-icon" style="background:var(--lake-soft);font-size:18px">${a.icon}</div><div><div class="action-text">${a.name}</div><div class="action-sub">Chicago.gov</div></div></a>`).join('');
+let tab='all';
+function render(){
+  let items=[];
+  if(tab==='all'||tab==='dept')items=items.concat(DATA.city.map(d=>makeCard(d,'Dept','tag-city')));
+  if(tab==='all'||tab==='agency')items=items.concat(DATA.agencies.map(d=>makeCard(d,'Agency','tag-community')));
+  document.getElementById('serviceGrid').innerHTML=items.join('');
+}
+function showTab(t,btn){tab=t;document.querySelectorAll('#svcFilters button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render();}
+render();
+document.getElementById('programGrid').innerHTML=DATA.programs.map(d=>makeCard(d,'Program','tag-program')).join('');
+</script>
+</body>
+</html>
