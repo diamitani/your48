@@ -9,9 +9,18 @@ function renderNav(active){
   ];
   return `<div class="topbar"><div class="container">
     <a href="index.html" class="wordmark"><span class="pre">your</span><span class="num">48<span class="dot">.</span></span></a>
-    <nav>${links.map(l=>`<a href="${l.href}"${l.href===active?' class="active-link"':''}>${l.label}</a>`).join('')}
+    <button class="menu-toggle" onclick="document.querySelector('.mobile-nav').classList.toggle('open')" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <nav class="desktop-nav">${links.map(l=>`<a href="${l.href}"${l.href===active?' class="active-link"':''}>${l.label}</a>`).join('')}
     <a href="https://mailchi.mp/the48thward/newsletter-signup" class="cta" target="_blank" rel="noopener">Newsletter ✉</a></nav>
-  </div></div>`;
+  </div></div>
+  <div class="mobile-nav">
+    <div class="mobile-nav-inner">
+      ${links.map(l=>`<a href="${l.href}"${l.href===active?' class="active-link"':''}>${l.label}</a>`).join('')}
+      <a href="https://mailchi.mp/the48thward/newsletter-signup" target="_blank" rel="noopener" class="mobile-cta">Newsletter ✉</a>
+    </div>
+  </div>`;
 }
 function renderFooter(){
   return `<footer><div class="container">
