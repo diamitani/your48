@@ -1,0 +1,25 @@
+{
+  "lastSync": "2026-05-02T23:08:16.580Z",
+  "findings": 2,
+  "eventsGenerated": 11,
+  "totalEvents": 25,
+  "sources": {
+    "48thward.org": 0,
+    "chicago.gov": 1,
+    "council": 1,
+    "elections": 0
+  },
+  "details": [
+    {
+      "source": "chicago.gov",
+      "type": "page_check",
+      "status": "ok",
+      "size": 52674
+    },
+    {
+      "source": "council",
+      "type": "page_check",
+      "status": "ok"
+    }
+  ]
+}

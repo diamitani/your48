@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dates & Deadlines — Your48</title>
+<meta name="description" content="Upcoming meetings, deadlines, elections, and events for Chicago's 48th Ward.">
+<link rel="stylesheet" href="style.css">
+<style>
+.timeline{display:flex;flex-direction:column;gap:16px}
+.event-card{display:grid;grid-template-columns:80px 1fr auto;gap:20px;padding:24px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden;align-items:center}
+.event-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0 3px 3px 0}
+.event-card.cat-ward::after{background:var(--lake)}.event-card.cat-government::after{background:var(--brick)}.event-card.cat-deadline::after{background:var(--maple)}.event-card.cat-community::after{background:#2D6A2D}.event-card.cat-safety::after{background:#6B3FA0}.event-card.cat-city::after{background:var(--lake-mid)}
+.event-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--lake-soft)}
+.event-date{text-align:center}
+.event-date .month{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lake)}
+.event-date .day{font-family:'Fraunces',serif;font-weight:600;font-size:32px;color:var(--ink);letter-spacing:-1px;line-height:1.1}
+.event-date .year{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-soft)}
+.event-info h3{font-family:'Fraunces',serif;font-weight:500;font-size:18px;letter-spacing:-.2px;margin-bottom:4px;font-variation-settings:"SOFT" 30}
+.event-info p{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.event-info .recur{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--lake);margin-top:4px}
+.event-cat{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap;height:fit-content}
+.cat-ward .event-cat{background:var(--lake);color:var(--foam)}.cat-government .event-cat{background:#E8D4D1;color:var(--brick-deep)}.cat-deadline .event-cat{background:#F5E6C8;color:#8B6914}.cat-community .event-cat{background:#D4E8D4;color:#2D6A2D}.cat-safety .event-cat{background:#E8D8F0;color:#6B3FA0}.cat-city .event-cat{background:var(--lake-soft);color:var(--lake)}
+.event-link{display:inline-flex;align-items:center;gap:4px;color:var(--lake);font-size:12px;font-weight:600;text-decoration:none;margin-top:6px}
+.event-link:hover{text-decoration:underline}
+.past-event{opacity:.45}
+.date-section-header{font-family:'Fraunces',serif;font-weight:500;font-size:24px;letter-spacing:-.5px;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule);font-variation-settings:"SOFT" 30}
+.date-section-header em{font-style:italic;color:var(--brick)}
+.sync-badge{display:inline-flex;align-items:center;gap:6px;background:var(--foam);border:1px solid var(--rule);border-radius:100px;padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);margin-top:12px}
+.sync-badge .dot{width:6px;height:6px;border-radius:50%;background:#2D6A2D;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:600px){.event-card{grid-template-columns:60px 1fr;gap:14px}.event-cat{display:none}}
+</style>
+</head>
+<body>
+<div id="nav-slot"></div>
+<div class="container">
+<section class="page-hero">
+<div class="eyebrow">— Dates & Deadlines</div>
+<h1>What's <em>coming up.</em></h1>
+<p>Meetings, deadlines, elections, and events that matter for 48th Ward residents. Never miss a beat.</p>
+<div class="sync-badge"><span class="dot"></span> Last synced: <span id="syncDate"></span></div>
+</section>
+
+<section class="section">
+<div class="filters" id="eventFilters">
+<button class="active" onclick="filterEvents('all',this)">All</button>
+<button onclick="filterEvents('upcoming',this)">Upcoming</button>
+<button onclick="filterEvents('ward',this)">Ward</button>
+<button onclick="filterEvents('government',this)">Government</button>
+<button onclick="filterEvents('deadline',this)">Deadlines</button>
+<button onclick="filterEvents('community',this)">Community</button>
+</div>
+<div id="eventTimeline" class="timeline"></div>
+</section>
+
+<div class="cta-banner">
+<h2>Never miss a <em>deadline.</em></h2>
+<p>Subscribe to the ward newsletter for weekly updates on meetings, events, and important dates.</p>
+<a href="https://mailchi.mp/the48thward/newsletter-signup" target="_blank" class="btn">Subscribe to Newsletter ✉</a>
+</div>
+</div>
+<div id="footer-slot"></div>
+<script src="events.js"></script><script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>
+initPage('dates.html');
+document.getElementById('syncDate').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const CAT_LABELS={ward:'Ward',government:'Government',deadline:'Deadline',community:'Community',safety:'Safety',city:'City'};
+const today=new Date();today.setHours(0,0,0,0);
+let currentFilter='all';
+
+function renderEvents(){
+  const timeline=document.getElementById('eventTimeline');
+  let filtered=EVENTS;
+  if(currentFilter==='upcoming')filtered=EVENTS.filter(e=>new Date(e.date)>=today);
+  else if(currentFilter!=='all')filtered=EVENTS.filter(e=>e.cat===currentFilter);
+
+  // Group by month
+  const groups={};
+  filtered.forEach(e=>{
+    const d=new Date(e.date);
+    const key=MONTHS[d.getMonth()]+' '+d.getFullYear();
+    if(!groups[key])groups[key]=[];
+    groups[key].push(e);
+  });
+
+  let html='';
+  for(const [month,events] of Object.entries(groups)){
+    html+=`<div class="date-section-header"><em>${month}</em></div>`;
+    events.forEach(e=>{
+      const d=new Date(e.date);
+      const isPast=d<today;
+      html+=`<div class="event-card cat-${e.cat} ${isPast?'past-event':''}">
+        <div class="event-date"><div class="month">${MONTHS[d.getMonth()]}</div><div class="day">${d.getDate()}</div><div class="year">${d.getFullYear()}</div></div>
+        <div class="event-info"><h3>${e.title}</h3><p>${e.desc}</p>${e.recur?`<div class="recur">↻ ${e.recur}</div>`:''}${e.link?`<a href="${e.link}" target="_blank" class="event-link">More info →</a>`:''}</div>
+        <span class="event-cat">${CAT_LABELS[e.cat]||e.cat}</span>
+      </div>`;
+    });
+  }
+  if(!html)html='<p style="color:var(--ink-soft);font-style:italic">No events match this filter.</p>';
+  timeline.innerHTML=html;
+}
+
+function filterEvents(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('#eventFilters button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderEvents();
+}
+renderEvents();
+</script>
+</body>
+</html>

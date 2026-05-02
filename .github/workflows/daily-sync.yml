@@ -1,0 +1,35 @@
+name: Daily Sync
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Runs daily at 7am CT (12:00 UTC)
+  workflow_dispatch:        # Allow manual trigger from GitHub UI
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Run Sync Script
+        run: node scripts/sync.js
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit & Push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "Your48 Bot"
+          git config user.email "bot@your48.vercel.app"
+          git add -A
+          git commit -m "sync: daily update $(date +%Y-%m-%d)"
+          git push
