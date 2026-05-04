@@ -1,94 +1,130 @@
-Category,Name,Title/Role,Address,Phone,Email,Website,Facebook,Notes
-Ward Office,Ald. Leni Manaa-Hoppenworth,Alderwoman - 48th Ward,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-784-5277,leni@the48thward.org,https://the48thward.org,https://www.facebook.com/the48thward,Office of the 48th Ward
-Ward Office,Nicole Granacki,Chief of Staff,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-352-1554,nicole@the48thward.org,https://the48thward.org,,She/Her/Hers
-Ward Office,Angel Rubi Navarijo,Director of Neighborhood Services,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-352-1553,angel@the48thward.org,https://the48thward.org,,He/Him
-Ward Office,Agnes Chan,Director of Planning & Infrastructure,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-784-5277,agnes@the48thward.org,https://the48thward.org,,She/Her
-Ward Office,Audrey Champelli,Communications Manager,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-784-5277,audrey@the48thward.org,https://the48thward.org,,She/They
-Ward Office,Conor Hart,Volunteer Coordinator,"1129 W Bryn Mawr Ave, Chicago IL 60660",773-784-5277,conor@the48thward.org,https://the48thward.org,,
-Ward Office,General Inquiries,48th Ward Office,"1129 W Bryn Mawr Ave, Chicago IL 60660",312-744-6834,info@the48thward.org,https://the48thward.org,,Alt: 312-744-6860
-Facebook Group,Edgewater (Chicago) Neighbors,Community Facebook Group,,,,https://www.facebook.com/share/g/18AJvP8RQa/,https://www.facebook.com/share/g/18AJvP8RQa/,Neighborhood discussion group
-Facebook Group,Edgewater (Chicago) Neighborhood News,Community Facebook Group,,,,https://www.facebook.com/share/g/17FcUxYP8r/,https://www.facebook.com/share/g/17FcUxYP8r/,Neighborhood news
-Facebook Group,Uptown (Chicago) Community Connections,Community Facebook Group,,,,https://www.facebook.com/share/g/1Byp7Lo8nb/,https://www.facebook.com/share/g/1Byp7Lo8nb/,Community connections
-Facebook Group,Andersonville Neighborhood News & Discourse,Community Facebook Group,,,,https://www.facebook.com/share/g/1CNUT2jjvq/,https://www.facebook.com/share/g/1CNUT2jjvq/,Neighborhood discourse
-Facebook Group,The 48th Ward (Official),Official Ward Facebook,,,,https://www.facebook.com/the48thward/,https://www.facebook.com/the48thward/,Official 48th Ward page
-Social Media,The 48th Ward Instagram,Official Ward Instagram,,,,,https://www.instagram.com/the48thward/,Official IG
-Building,Berger Park,Landmark/Community Space,"6205 N Sheridan Rd, Chicago IL 60660",,,,,"Newsie flyer location, community events"
-Building,Emanuel Congregation,Religious/Community,"5959 N Sheridan Rd, Chicago IL 60660",,,,,Active development discussion
-Building,Colvin House,Residential,"5940 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Malibu Condos,Residential Condos,"6007 N Sheridan Rd, Chicago IL 60660",,,https://www.malibucondochicago.com,,Board Pres: Justin Lombardo
-Building,Sixty Thirty Sheridan,Residential,"6030 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Malibu East,Residential,"6033 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Park Edgewater,Residential,"6101 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,6118 N Sheridan,Residential,"6118 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,6121 N Sheridan,Residential,"6121 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Tiara,Residential,"6145 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,El Lago,Residential,"6157 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Granville Tower,Residential,"6166 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Granville Beach,Residential,"6171 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Sheridan Boardwalk,Residential,"6201 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Sheridan Lakeside,Residential,"6251 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Shoreline Towers,Residential,"6301 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,Sheridan Point,Residential,"6325 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-Building,6334 N Sheridan,Residential,"6334 N Sheridan Rd, Chicago IL 60660",,,,,Newsie flyer location
-City Service,311 City Services,Non-Emergency Services,,311,,https://www.chicago.gov/city/en/depts/311.html,,Report potholes; graffiti; streetlights; garbage
-City Service,Chicago Police - 20th District,Local Police District,,312-742-8714,,https://www.chicago.gov/city/en/depts/cpd.html,,Covers 48th Ward area
-City Service,Chicago Fire Department,Fire & Emergency,,911,,https://www.chicago.gov/city/en/depts/cfd.html,,Emergency services
-City Service,Streets & Sanitation,Garbage & Street Cleaning,,312-744-5000,,https://www.chicago.gov/city/en/depts/streets.html,,Garbage cart; recycling; street sweeping
-City Service,Water Management,Water & Sewer,,312-744-4426,,https://www.chicago.gov/city/en/depts/water.html,,Billing; water quality; flooding
-City Service,CDOT Transportation,Roads & Biking,,312-744-3600,,https://www.chicago.gov/city/en/depts/cdot.html,,Potholes; bike lanes; traffic signals
-City Service,Animal Care & Control,Pets & Strays,,312-747-1406,,https://www.chicago.gov/city/en/depts/cacc.html,,Dog registration; stray animals; lost pets
-City Service,Buildings Department,Permits & Inspections,,312-744-3449,,https://www.chicago.gov/city/en/depts/bldgs.html,,Building permits; violations; inspections
-City Service,Public Health,Health Services,,312-747-9884,,https://www.chicago.gov/city/en/depts/cdph.html,,Vaccines; food safety; health clinics
-City Service,Family & Support Services,Social Services,,312-743-0300,,https://www.chicago.gov/city/en/depts/fss.html,,Seniors; homeless services; workforce dev
-City Service,Planning & Development,Zoning & Development,,312-744-4190,,https://www.chicago.gov/city/en/depts/dcd.html,,Zoning; land use; TIF
-City Service,Bus. Affairs & Consumer Protection,Business Licensing,,312-744-6060,,https://www.chicago.gov/city/en/depts/bacp.html,,Business licenses; consumer complaints
-City Service,Cultural Affairs & Special Events,Events & Culture,,312-744-3316,,https://www.chicago.gov/city/en/depts/dca.html,,Festivals; public art; film permits
-City Service,People with Disabilities,Accessibility,,312-744-7050,,https://www.chicago.gov/city/en/depts/mopd.html,,Home modifications; accessible services
-City Service,Human Relations,Discrimination,,312-744-4111,,https://www.chicago.gov/city/en/depts/cchr.html,,Discrimination complaints; hate crimes
-City Service,Environment,Environmental Issues,,312-744-7606,,https://www.chicago.gov/city/en/depts/env.html,,Recycling; air quality; brownfields
-City Service,Emergency Mgmt & Communications,Emergency Prep,,312-746-9111,,https://www.chicago.gov/city/en/depts/oem.html,,NotifyChicago; CERT volunteers
-City Service,COPA,Police Accountability,,312-743-COPA,,https://www.chicago.gov/city/en/depts/copa.html,,Civilian Office of Police Accountability
-City Service,Housing,Affordable Housing,,312-742-0484,,https://www.chicago.gov/city/en/depts/doh.html,,Affordable housing; rentals; homebuyer assist
-City Service,Ethics,Government Ethics,,312-744-9660,,https://www.chicago.gov/city/en/depts/ethics.html,,Ethics complaints; lobbyist registration
-City Agency,Chicago Park District,Parks & Recreation,,312-742-PLAY,,https://www.chicagoparkdistrict.com,,Programs; facilities; beaches
-City Agency,Chicago Transit Authority (CTA),Public Transit,,888-968-7282,,https://www.transitchicago.com,,Buses; trains; Ventra cards
-City Agency,Chicago Public Schools (CPS),K-12 Education,,773-553-1000,,https://www.cps.edu,,Schools serving 48th Ward
-City Agency,City Colleges of Chicago,Higher Education,,773-COLLEGE,,https://www.ccc.edu,,Truman College nearby
-City Agency,Chicago Housing Authority (CHA),Public Housing,,312-742-8500,,https://www.thecha.org,,Housing choice vouchers; public housing
-City Agency,Chicago Public Library,Libraries,,312-747-4300,,https://www.chipublib.org,,Edgewater Branch; programs
-Elected Official,Mayor Brandon Johnson,Mayor of Chicago,"City Hall, 121 N LaSalle St",312-744-3300,,https://www.chicago.gov/city/en/depts/mayor.html,,
-Elected Official,Anna Valencia,City Clerk,"City Hall, 121 N LaSalle St",312-744-6861,,https://www.chicityclerk.com,,Vehicle stickers; city ID
-Elected Official,Melissa Conyears-Ervin,City Treasurer,"City Hall, 121 N LaSalle St",312-744-3356,,https://www.chicagocitytreasurer.com,,
-Congressional,Sen. Dick Durbin,U.S. Senator - Illinois,"230 S Dearborn St, Suite 3892",312-353-4952,,https://www.durbin.senate.gov,,Senior Senator
-Congressional,Sen. Tammy Duckworth,U.S. Senator - Illinois,"8 S Old State Capitol Plaza, Suite 1",312-886-3506,,https://www.duckworth.senate.gov,,Junior Senator
-Congressional,Rep. Mike Quigley,U.S. Representative - IL-5,"4345 N Milwaukee Ave",773-267-5926,,https://quigley.house.gov,,5th Congressional District
-State Government,Gov. JB Pritzker,Governor of Illinois,"207 State House, Springfield IL",217-782-0244,,https://www.illinois.gov/government/governor,,
-State Government,Illinois State Treasurer,Unclaimed Property/ICash,,217-782-6000,,https://icash.illinoistreasurer.gov,,ICash unclaimed funds events
-State Government,Cook County Board of Elections,Elections & Voter Registration,,312-603-0906,,https://www.chicagoelections.com,,Voter registration; polling locations
-State Government,Cook County Assessor,Property Tax Assessment,,312-443-7550,,https://www.cookcountyassessor.com,,Property tax appeals; exemptions
-Community Resource,Edgewater Branch Library,Public Library,"6000 N Broadway, Chicago IL 60660",312-742-1945,,https://www.chipublib.org,,Programs; wifi; meeting rooms
-Community Resource,Berger Park Cultural Center,Cultural Center,"6205 N Sheridan Rd, Chicago IL 60660",312-742-7871,,https://www.chicagoparkdistrict.com,,Events; classes; rentals
-Community Resource,Swedish American Museum,Museum & Culture,"5211 N Clark St, Chicago IL 60640",773-728-8111,,https://www.swedishamericanmuseum.org,,Andersonville landmark
-Community Resource,Loyola University Chicago,University,"1032 W Sheridan Rd, Chicago IL 60660",773-274-3000,sglc@luc.edu,https://www.luc.edu,,Student Government: sglc@luc.edu
-Community Resource,Loyola Law School Democrats,Student Organization,,,,,,"Pres: Garrett Wolf; VP: Arete Tsoukalas; Comms: Ben Kaiser; Advisor: Juan Perea jperea@luc.edu"
-Community Resource,Hopleaf Bar,Neighborhood Institution,"5148 N Clark St, Chicago IL 60640",773-334-9851,,https://www.hopleafbar.com,,Andersonville landmark
-Ward Program,Newsies Program,Flyer Distribution Volunteers,,773-784-5277,audrey@the48thward.org,,,Weekly flyer distribution in ward buildings
-Ward Program,Digital Newsies,Social Media Volunteers,,773-784-5277,nicole@the48thward.org,,,Share ward content on social media & FB groups
-Ward Program,Participatory Budgeting,Resident Voting on Projects,,773-784-5277,info@the48thward.org,https://the48thward.org,,Annual resident-driven budget priorities
-Ward Program,Newsletter Signup,Ward Newsletter,,773-784-5277,,https://mailchi.mp/the48thward/newsletter-signup,,Weekly newsletter from the ward office
-Ward Program,Invite the Alderwoman,Building/HOA Presentations,,773-784-5277,,https://the48thward.org/invite-the-alderwoman,,Request a town hall at your building
-Ward Program,Shred & Electronics Recycling,Periodic Community Event,"5853 N Broadway, Chicago IL 60660",773-784-5277,,,,"Document shredding, electronics recycling"
-Ward Program,Beat Meetings,Police-Community Meetings,,773-784-5277,,,,Monthly police beat meetings in the ward
-Ward Program,Town Halls,Community Town Halls,,773-784-5277,,https://the48thward.org,,Twice yearly + infrastructure town hall
-Quick Action,Report a Pothole,311 Service,,311,,https://www.chicago.gov/city/en/depts/cdot/provdrs/street/svcs/report_a_pot_holeinstreet.html,,
-Quick Action,Report Graffiti,311 Service,,311,,https://www.chicago.gov/city/en/depts/streets/provdrs/graffiti_blasters/svcs/graffiti_removal.html,,
-Quick Action,Request Garbage Cart,311 Service,,311,,https://www.chicago.gov/city/en/depts/streets/provdrs/rodent/svcs/garbage_cart_distribution.html,,
-Quick Action,Report Abandoned Vehicle,311 Service,,311,,https://www.chicago.gov/city/en/depts/streets/provdrs/traffic/svcs/abandoned_vehicles.html,,
-Quick Action,Street Light Out,311 Service,,311,,https://www.chicago.gov/city/en/depts/cdot/provdrs/traffic_signals_andstreetlights/svcs/bldgviolstatus.html,,
-Quick Action,Building Violation,311 Service,,311,,https://www.chicago.gov/city/en/depts/bldgs/provdrs/inspect/svcs/building_violationsonline.html,,
-Quick Action,Pay Parking Ticket,Finance,,,,https://www.chicago.gov/city/en/depts/fin/provdrs/parking_and_redlightcitationadministration/svcs/pay_parking_and_red-lightticketson-line.html,,
-Quick Action,Pay Utility Bill,Water Dept,,,,https://www.chicago.gov/city/en/depts/fin/provdrs/utility_billing/svcs/utility-bill.html,,
-Quick Action,Register Your Dog,Animal Care,,,,https://www.chicago.gov/city/en/depts/cacc/provdrs/care/svcs/dog_registration.html,,
-Quick Action,NotifyChicago Alerts,Emergency Alerts,,,,https://www.chicago.gov/city/en/depts/oem/provdrs/alertchicago/svcs/notifychicago.html,,Sign up for emergency alerts
-Quick Action,Chi Street Work Map,Construction Tracker,,,,https://chistreetwork.chicago.gov/map,,Look up construction projects
-Quick Action,Voter Registration,Cook County Elections,,,,https://www.chicagoelections.com,,Register to vote or check status
+"ID","Category","Name","Role_Type","Description","Address","Phone","Email","Website","Detail_URL"
+"leni","Ward Office","Ald. Leni Manaa-Hoppenworth","Alderwoman — 48th Ward","Elected alderwoman serving the 48th Ward since 2023. Covers Edgewater, Uptown, and Andersonville neighborhoods.","1129 W Bryn Mawr Ave","773-784-5277","leni@the48thward.org","https://the48thward.org","https://your48.com/item.html?id=leni"
+"nicole","Ward Office","Nicole Granacki","Chief of Staff","Oversees ward office operations, constituent services, and staff management.","","773-352-1554","nicole@the48thward.org","","https://your48.com/item.html?id=nicole"
+"angel","Ward Office","Angel Rubi Navarijo","Dir. of Neighborhood Services","Handles neighborhood complaints, zoning issues, and business corridor support.","","773-352-1553","angel@the48thward.org","","https://your48.com/item.html?id=angel"
+"agnes","Ward Office","Agnes Chan","Dir. of Planning & Infrastructure","Manages infrastructure projects, development review, and capital improvements.","","","agnes@the48thward.org","","https://your48.com/item.html?id=agnes"
+"audrey","Ward Office","Audrey Champelli","Communications Manager","Manages newsletters, social media, press, and the Newsies volunteer program.","","","audrey@the48thward.org","","https://your48.com/item.html?id=audrey"
+"conor","Ward Office","Conor Hart","Volunteer Coordinator","Coordinates ward volunteers, community events, and outreach programs.","","","conor@the48thward.org","","https://your48.com/item.html?id=conor"
+"fb-official","Social Media","48th Ward (Official)","Facebook","Official Facebook page of the 48th Ward office.","","","","https://www.facebook.com/the48thward/","https://your48.com/item.html?id=fb-official"
+"ig-official","Social Media","48th Ward Instagram","Instagram","Official Instagram for ward news and photos.","","","","https://www.instagram.com/the48thward/","https://your48.com/item.html?id=ig-official"
+"fb-edgewater","Social Media","Edgewater Neighbors","Facebook Group","Active discussion group for Edgewater residents.","","","","https://www.facebook.com/share/g/18AJvP8RQa/","https://your48.com/item.html?id=fb-edgewater"
+"fb-edgenews","Social Media","Edgewater Neighborhood News","Facebook Group","News and updates for the Edgewater neighborhood.","","","","https://www.facebook.com/share/g/17FcUxYP8r/","https://your48.com/item.html?id=fb-edgenews"
+"fb-uptown","Social Media","Uptown Community Connections","Facebook Group","Community connections for Uptown residents.","","","","https://www.facebook.com/share/g/1Byp7Lo8nb/","https://your48.com/item.html?id=fb-uptown"
+"fb-andersonville","Social Media","Andersonville News & Discourse","Facebook Group","Neighborhood news and discussion for Andersonville.","","","","https://www.facebook.com/share/g/1CNUT2jjvq/","https://your48.com/item.html?id=fb-andersonville"
+"311","City Department","311 City Services","","Non-emergency city services hotline — report potholes, graffiti, streetlights out, garbage issues, tree trimming, rodents, and more.","","311","","https://www.chicago.gov/city/en/depts/311.html","https://your48.com/item.html?id=311"
+"cpd","City Department","Chicago Police Department","","20th District covers the 48th Ward. Non-emergency and community policing.","","312-742-8714","","https://www.chicago.gov/city/en/depts/cpd.html","https://your48.com/item.html?id=cpd"
+"cfd","City Department","Chicago Fire Department","","Fire, EMS, and emergency response services.","","911","","https://www.chicago.gov/city/en/depts/cfd.html","https://your48.com/item.html?id=cfd"
+"streets","City Department","Streets & Sanitation","","Garbage collection, recycling, street sweeping, graffiti removal, rodent baiting, and tree trimming.","","312-744-5000","","https://www.chicago.gov/city/en/depts/streets.html","https://your48.com/item.html?id=streets"
+"cdot","City Department","CDOT — Transportation","","Street repairs, potholes, bike lanes, traffic signals, speed bumps, and pedestrian safety.","","312-744-3600","","https://www.chicago.gov/city/en/depts/cdot.html","https://your48.com/item.html?id=cdot"
+"water","City Department","Water Management","","Water billing, water quality testing, sewer maintenance, and flood control.","","312-744-4426","","https://www.chicago.gov/city/en/depts/water.html","https://your48.com/item.html?id=water"
+"bldgs","City Department","Buildings Department","","Building permits, code violations, inspections, and zoning compliance.","","312-744-3449","","https://www.chicago.gov/city/en/depts/bldgs.html","https://your48.com/item.html?id=bldgs"
+"cdph","City Department","Public Health","","Health clinics, vaccines, food safety inspections, mental health, and substance abuse services.","","312-747-9884","","https://www.chicago.gov/city/en/depts/cdph.html","https://your48.com/item.html?id=cdph"
+"cacc","City Department","Animal Care & Control","","Dog registration, stray animal pickup, lost pets, adoption, and bite reports.","","312-747-1406","","https://www.chicago.gov/city/en/depts/cacc.html","https://your48.com/item.html?id=cacc"
+"fss","City Department","Family & Support Services","","Senior services, homeless outreach, workforce development, domestic violence, and youth programs.","","312-743-0300","","https://www.chicago.gov/city/en/depts/fss.html","https://your48.com/item.html?id=fss"
+"dcd","City Department","Planning & Development","","Zoning changes, land use, TIF districts, landmarks, and development projects.","","312-744-4190","","https://www.chicago.gov/city/en/depts/dcd.html","https://your48.com/item.html?id=dcd"
+"doh","City Department","Housing","","Affordable housing, rental assistance, homebuyer programs, and housing inspections.","","312-742-0484","","https://www.chicago.gov/city/en/depts/doh.html","https://your48.com/item.html?id=doh"
+"dca","City Department","Cultural Affairs & Special Events","","Festivals, public art, film permits, Millennium Park, and city cultural programs.","","312-744-3316","","https://www.chicago.gov/city/en/depts/dca.html","https://your48.com/item.html?id=dca"
+"env","City Department","Environment","","Recycling, air quality, brownfield cleanup, lead testing, and environmental complaints.","","312-744-7606","","https://www.chicago.gov/city/en/depts/env.html","https://your48.com/item.html?id=env"
+"copa","City Department","COPA — Police Accountability","","Civilian oversight of police misconduct complaints and use-of-force investigations.","","312-743-COPA","","https://www.chicago.gov/city/en/depts/copa.html","https://your48.com/item.html?id=copa"
+"oem","City Department","Emergency Management","","NotifyChicago alerts, emergency preparedness, CERT volunteer program.","","312-746-9111","","https://www.chicago.gov/city/en/depts/oem.html","https://your48.com/item.html?id=oem"
+"bacp","City Department","Business Affairs & Consumer Protection","","Business licenses, consumer complaints, food establishment licenses, sidewalk cafes.","","312-744-6060","","https://www.chicago.gov/city/en/depts/bacp.html","https://your48.com/item.html?id=bacp"
+"fin","City Department","Finance","","Parking tickets, red-light tickets, tax payments, utility billing, debt collection.","","312-744-4430","","https://www.chicago.gov/city/en/depts/fin.html","https://your48.com/item.html?id=fin"
+"cchr","City Department","Human Relations","","Discrimination complaints, hate crime reporting, community mediation.","","312-744-4111","","https://www.chicago.gov/city/en/depts/cchr.html","https://your48.com/item.html?id=cchr"
+"mopd","City Department","People with Disabilities","","Home modifications, accessible services, disability ID cards, ADA compliance.","","312-744-7050","","https://www.chicago.gov/city/en/depts/mopd.html","https://your48.com/item.html?id=mopd"
+"ethics","City Department","Board of Ethics","","Ethics complaints, lobbyist registration, financial disclosure, ethics training.","","312-744-9660","","https://www.chicago.gov/city/en/depts/ethics.html","https://your48.com/item.html?id=ethics"
+"dhr","City Department","Human Resources","","City job opportunities, employee benefits, internships.","","312-744-4190","","https://www.chicago.gov/city/en/depts/dhr.html","https://your48.com/item.html?id=dhr"
+"law","City Department","Law Department","","City legal services, FOIA requests, ordinance interpretation.","","312-744-6900","","https://www.chicago.gov/city/en/depts/dol.html","https://your48.com/item.html?id=law"
+"igo","City Department","Inspector General","","Government waste, fraud, and corruption investigations.","","312-744-3000","","https://www.chicago.gov/city/en/depts/igo.html","https://your48.com/item.html?id=igo"
+"obm","City Department","Budget & Management","","City budget, financial planning, performance management.","","312-744-3300","","https://www.chicago.gov/city/en/depts/obm.html","https://your48.com/item.html?id=obm"
+"cpd-parks","City Agency","Chicago Park District","","Parks, beaches, pools, sports leagues, after-school programs, senior programs, and nature centers.","","312-742-PLAY","","https://www.chicagoparkdistrict.com","https://your48.com/item.html?id=cpd-parks"
+"cta","City Agency","CTA — Transit Authority","","Bus and train routes, Ventra cards, service alerts, accessibility, and reduced fare programs.","","888-968-7282","","https://www.transitchicago.com","https://your48.com/item.html?id=cta"
+"cps","City Agency","Chicago Public Schools","","K-12 public education, GoCPS enrollment, special education, after-school programs.","","773-553-1000","","https://www.cps.edu","https://your48.com/item.html?id=cps"
+"ccc","City Agency","City Colleges of Chicago","","Community colleges, workforce training, GED programs. Truman College serves the 48th Ward.","","773-COLLEGE","","https://www.ccc.edu","https://your48.com/item.html?id=ccc"
+"cha","City Agency","Chicago Housing Authority","","Public housing, housing choice vouchers (Section 8), waitlist applications.","","312-742-8500","","https://www.thecha.org","https://your48.com/item.html?id=cha"
+"cpl","City Agency","Chicago Public Library","","Library cards, programs, computer access, meeting rooms. Edgewater Branch at 6000 N Broadway.","","312-747-4300","","https://www.chipublib.org","https://your48.com/item.html?id=cpl"
+"metra","City Agency","Metra Commuter Rail","","Commuter train service to suburbs and downtown.","","312-322-6777","","https://metra.com","https://your48.com/item.html?id=metra"
+"pace","City Agency","Pace Suburban Bus","","Suburban and paratransit bus services connecting with CTA.","","847-364-7223","","https://pacebus.com","https://your48.com/item.html?id=pace"
+"mayor","Elected Official","Mayor Brandon Johnson","Mayor of Chicago","Executive head of the City of Chicago municipal government.","","312-744-3300","","https://www.chicago.gov/city/en/depts/mayor.html","https://your48.com/item.html?id=mayor"
+"clerk","Elected Official","Anna Valencia","City Clerk","Vehicle stickers, city ID, birth/death/marriage certificates, municipal code.","","312-744-6861","","https://www.chicityclerk.com","https://your48.com/item.html?id=clerk"
+"treasurer","Elected Official","Melissa Conyears-Ervin","City Treasurer","City investments, banking relationships, financial literacy programs.","","312-744-3356","","https://www.chicagocitytreasurer.com","https://your48.com/item.html?id=treasurer"
+"durbin","Elected Official","Sen. Dick Durbin","U.S. Senator — Illinois","Senior U.S. Senator from Illinois. Chicago office: 230 S Dearborn St, Suite 3892.","","312-353-4952","","https://www.durbin.senate.gov","https://your48.com/item.html?id=durbin"
+"duckworth","Elected Official","Sen. Tammy Duckworth","U.S. Senator — Illinois","Junior U.S. Senator from Illinois. Iraq War veteran and disability rights advocate.","","312-886-3506","","https://www.duckworth.senate.gov","https://your48.com/item.html?id=duckworth"
+"quigley","Elected Official","Rep. Mike Quigley","U.S. Representative — IL-5","Represents Illinois' 5th Congressional District including the 48th Ward.","","773-267-5926","","https://quigley.house.gov","https://your48.com/item.html?id=quigley"
+"pritzker","Elected Official","Gov. JB Pritzker","Governor of Illinois","Governor of the State of Illinois.","","217-782-0244","","https://www.illinois.gov/government/governor","https://your48.com/item.html?id=pritzker"
+"elections","Elected Official","Cook County Board of Elections","Voter Registration & Polling","Voter registration, polling place lookup, election results, early voting locations.","","312-603-0906","","https://www.chicagoelections.com","https://your48.com/item.html?id=elections"
+"assessor","Elected Official","Cook County Assessor","Property Tax Assessment","Property tax assessment, appeals, exemptions (homeowner, senior, senior freeze).","","312-443-7550","","https://www.cookcountyassessor.com","https://your48.com/item.html?id=assessor"
+"edgewater-lib","Community Resource","Edgewater Branch Library","","Public library with programs, wifi, meeting rooms, and children's activities.","6000 N Broadway","312-742-1945","","https://www.chipublib.org","https://your48.com/item.html?id=edgewater-lib"
+"berger","Community Resource","Berger Park Cultural Center","","Events, classes, art exhibits, rentals, and community programming in a lakefront setting.","6205 N Sheridan Rd","312-742-7871","","","https://your48.com/item.html?id=berger"
+"swedish-museum","Community Resource","Swedish American Museum","","Andersonville landmark celebrating Swedish-American heritage with exhibits, events, and a children's museum.","5211 N Clark St","773-728-8111","","https://www.swedishamericanmuseum.org","https://your48.com/item.html?id=swedish-museum"
+"loyola","Community Resource","Loyola University Chicago","","Private Jesuit university. Lake Shore Campus in Rogers Park with student civic engagement programs.","1032 W Sheridan Rd","773-274-3000","","https://www.luc.edu","https://your48.com/item.html?id=loyola"
+"hopleaf","Community Resource","Hopleaf Bar","","Iconic Andersonville Belgian beer bar and neighborhood gathering spot since 1992.","5148 N Clark St","","","https://www.hopleafbar.com","https://your48.com/item.html?id=hopleaf"
+"edgewater-hist","Community Resource","Edgewater Historical Society","","Preserving and sharing the history of the Edgewater neighborhood.","","","","https://www.edgewaterhistory.org","https://your48.com/item.html?id=edgewater-hist"
+"andersonville-chamber","Community Resource","Andersonville Chamber of Commerce","","Business association supporting local shops and restaurants along Clark Street.","5153 N Clark St","","","https://www.andersonville.org","https://your48.com/item.html?id=andersonville-chamber"
+"goudy","School","Goudy Technology Academy","","CPS Elementary, K-8. Technology-focused curriculum.","5120 N Winthrop Ave","773-534-2590","","https://www.cps.edu","https://your48.com/item.html?id=goudy"
+"swift","School","Swift Elementary School","","CPS Elementary, K-8. Strong community involvement.","5900 N Winthrop Ave","773-534-2525","","https://www.cps.edu","https://your48.com/item.html?id=swift"
+"peirce","School","Peirce International School","","CPS Elementary with International Baccalaureate program.","1423 W Bryn Mawr Ave","773-534-2410","","https://www.cps.edu","https://your48.com/item.html?id=peirce"
+"senn","School","Senn High School","","CPS High School, 9-12. International Baccalaureate and fine arts programs.","5900 N Glenwood Ave","773-534-2365","","https://www.cps.edu","https://your48.com/item.html?id=senn"
+"sullivan","School","Sullivan High School","","CPS High School, 9-12. Diverse student body with college prep focus.","6631 N Bosworth Ave","773-534-2000","","https://www.cps.edu","https://your48.com/item.html?id=sullivan"
+"uplift","School","Uplift Community High School","","CPS High School, 9-12. Small school model with personalized learning.","900 W Wilson Ave","773-534-9100","","https://www.cps.edu","https://your48.com/item.html?id=uplift"
+"truman","School","Truman College","","City Colleges of Chicago community college. Degrees, certificates, ESL, GED, and workforce training.","1145 W Wilson Ave","773-907-4000","","https://www.trumancollege.edu","https://your48.com/item.html?id=truman"
+"loyola-u","School","Loyola University Chicago","","Private Jesuit university. Lake Shore Campus.","1032 W Sheridan Rd","773-274-3000","","https://www.luc.edu","https://your48.com/item.html?id=loyola-u"
+"brennemann","School","Brennemann Elementary","","CPS Elementary, Pre-K through 8.","4727 N Ashland Ave","773-534-5425","","https://www.cps.edu","https://your48.com/item.html?id=brennemann"
+"hayt","School","Hayt Elementary School","","CPS Elementary, Pre-K through 8. Regional gifted center.","1518 W Granville Ave","773-534-2485","","https://www.cps.edu","https://your48.com/item.html?id=hayt"
+"emanuel","Religious Institution","Emanuel Congregation","","Reform Jewish synagogue founded in 1880. Active community programming and social justice advocacy.","5959 N Sheridan Rd","773-561-5173","","https://www.emanuelcong.org","https://your48.com/item.html?id=emanuel"
+"st-ita","Religious Institution","St. Ita Church","","Roman Catholic parish established in 1900. Beautiful Gothic Revival architecture.","1220 W Catalpa Ave","773-561-5343","","","https://your48.com/item.html?id=st-ita"
+"edgewater-pres","Religious Institution","Edgewater Presbyterian Church","","Presbyterian church hosting community meetings and neighborhood events.","1020 W Bryn Mawr Ave","773-561-4748","","","https://your48.com/item.html?id=edgewater-pres"
+"st-gregory","Religious Institution","St. Gregory the Great Church","","Episcopal parish with arts ministry, concerts, and community outreach.","1609 W Gregory St","773-561-3546","","https://www.stgregoryschicago.org","https://your48.com/item.html?id=st-gregory"
+"ebenezer","Religious Institution","Ebenezer Lutheran Church","","ELCA Lutheran church in Andersonville with strong community service programs.","1650 W Foster Ave","773-561-8496","","https://www.ebenezerchurch.org","https://your48.com/item.html?id=ebenezer"
+"buddhist-temple","Religious Institution","Buddhist Temple of Chicago","","Jodo Shinshu Buddhist temple offering meditation, dharma talks, and cultural events.","1151 W Leland Ave","773-334-4661","","https://www.budtempchi.org","https://your48.com/item.html?id=buddhist-temple"
+"icc","Religious Institution","Islamic Community Center","","Mosque and community center serving Muslim residents in Uptown.","4380 N Elston Ave","773-725-9047","","","https://your48.com/item.html?id=icc"
+"ravenswood-fellowship","Religious Institution","Ravenswood Fellowship UMC","","United Methodist church with food pantry and community outreach.","4511 N Hermitage Ave","773-561-2610","","","https://your48.com/item.html?id=ravenswood-fellowship"
+"hopleaf-biz","Business","Hopleaf Bar","Restaurant & Bar","Iconic Belgian beer bar. 60+ draft beers, mussels, and a neighborhood institution since 1992.","5148 N Clark St","","","https://www.hopleafbar.com","https://your48.com/item.html?id=hopleaf-biz"
+"wcf","Business","Women & Children First","Bookstore","Feminist bookstore since 1979. Books, events, author readings, and community space.","5233 N Clark St","773-769-9299","","https://www.womenandchildrenfirst.com","https://your48.com/item.html?id=wcf"
+"marianos","Business","Mariano's Fresh Market","Grocery","Full-service grocery store with prepared foods, bakery, and pharmacy.","5201 N Sheridan Rd","773-275-0500","","","https://your48.com/item.html?id=marianos"
+"jewel","Business","Jewel-Osco","Grocery","Grocery store with pharmacy and deli.","5343 N Broadway","773-275-4141","","","https://your48.com/item.html?id=jewel"
+"big-jones","Business","Big Jones","Restaurant","Upscale Southern cuisine. Award-winning chef-driven restaurant in Andersonville.","5347 N Clark St","","","https://www.bigjoneschicago.com","https://your48.com/item.html?id=big-jones"
+"uncommon","Business","Uncommon Ground","Restaurant","Farm-to-table restaurant with certified organic rooftop farm. Two locations.","1401 W Devon Ave","","","https://www.uncommonground.com","https://your48.com/item.html?id=uncommon"
+"svea","Business","Svea Restaurant","Restaurant","Classic Swedish diner. Pancakes, meatballs, and Andersonville heritage since 1929.","5236 N Clark St","773-275-7738","","","https://your48.com/item.html?id=svea"
+"simons","Business","Simon's Tavern","Bar","Historic bar since 1934. Glögg in winter, neighborhood dive vibes year-round.","5210 N Clark St","773-878-0894","","","https://your48.com/item.html?id=simons"
+"spoke-bird","Business","The Spoke & Bird","Restaurant & Bar","Modern cafe and bar in Edgewater. Craft cocktails, brunch, and neighborhood gathering spot.","5714 N Broadway","","","","https://your48.com/item.html?id=spoke-bird"
+"replay","Business","Replay Andersonville","Bar & Entertainment","Arcade bar with retro games, pinball, craft beer, and late-night fun.","5358 N Clark St","","","https://www.replaychi.com","https://your48.com/item.html?id=replay"
+"georges","Business","George's Ice Cream & Sweets","Ice Cream","Neighborhood ice cream shop in Edgewater. Homemade flavors and treats.","5306 N Sheridan Rd","","","","https://your48.com/item.html?id=georges"
+"early-bed","Business","Early to Bed","Retail","Boutique retail shop in Andersonville.","5044 N Clark St","","","https://www.early2bed.com","https://your48.com/item.html?id=early-bed"
+"reza","Business","Reza's Restaurant","Restaurant","Persian and Middle Eastern cuisine. Large portions and warm atmosphere.","5255 N Clark St","773-561-1898","","","https://your48.com/item.html?id=reza"
+"ann-sather","Business","Ann Sather","Restaurant","Swedish-American diner. Famous cinnamon rolls and Swedish pancakes since 1945.","5207 N Clark St","773-271-6677","","https://www.annsather.com","https://your48.com/item.html?id=ann-sather"
+"middle-east-bakery","Business","Middle East Bakery & Grocery","Bakery & Grocery","Authentic Middle Eastern bakery, groceries, and prepared foods since 1980.","1512 W Foster Ave","773-561-2224","","","https://your48.com/item.html?id=middle-east-bakery"
+"edgewater-produce","Business","Edgewater Produce","Grocery","Family-owned fruit and vegetable market with competitive prices.","5515 N Broadway","","","","https://your48.com/item.html?id=edgewater-produce"
+"hamburger-mary","Business","Hamburger Mary's","Restaurant & Entertainment","LGBTQ+ friendly burger bar with drag shows and entertainment in Andersonville.","5400 N Clark St","","","https://www.hamburgermarys.com/chicago","https://your48.com/item.html?id=hamburger-mary"
+"la-fournette","Business","La Fournette","Bakery & Cafe","French artisan bakery with breads, pastries, and cafe. Andersonville gem.","1547 W Foster Ave","773-907-8261","","https://www.lafournette.com","https://your48.com/item.html?id=la-fournette"
+"lady-gregory","Business","Lady Gregory's","Restaurant & Bar","Irish pub with craft beers, weekend brunch, and a cozy Andersonville atmosphere.","5260 N Clark St","773-271-5050","","","https://your48.com/item.html?id=lady-gregory"
+"first-slice","Business","First Slice Pie Cafe","Cafe (Nonprofit)","Nonprofit cafe. Pies, quiche, and sandwiches. Proceeds fund meals for food-insecure neighbors.","5357 N Ashland Ave","","","https://www.firstslice.org","https://your48.com/item.html?id=first-slice"
+"rattleback","Business","Rattleback Records","Record Store","Independent record store. New and used vinyl, local music events.","5405 N Clark St","","","","https://your48.com/item.html?id=rattleback"
+"alamo-shoes","Business","Alamo Shoes","Retail — Shoes","Family-owned shoe store since 1919. Wide selection, personalized fitting.","5321 N Clark St","773-334-6100","","https://www.alamoshoes.com","https://your48.com/item.html?id=alamo-shoes"
+"foursided","Business","Foursided","Art & Framing","Custom framing, vintage goods, greeting cards, and art prints.","5061 N Clark St","773-506-8300","","https://www.foursided.com","https://your48.com/item.html?id=foursided"
+"oils-ometer","Business","Oils & Ometer","Specialty Food","Specialty olive oil and balsamic vinegar tasting shop.","5266 N Clark St","","","","https://your48.com/item.html?id=oils-ometer"
+"edgewater-medical","Business","Edgewater Medical Center (site)","Development Site","Former hospital site under redevelopment discussion.","5700 N Ashland Ave","","","","https://your48.com/item.html?id=edgewater-medical"
+"presence-health","Business","Presence St. Francis Hospital","Healthcare","Full-service hospital near the ward. Emergency, surgery, and outpatient care.","355 Ridge Ave, Evanston","847-316-4000","","https://www.amitahealth.org","https://your48.com/item.html?id=presence-health"
+"newsies","Ward Program","Newsies Program","","Volunteer to distribute weekly information flyers to buildings across the ward. Great way to meet neighbors and stay informed.","","","","","https://your48.com/item.html?id=newsies"
+"digital-newsies","Ward Program","Digital Newsies","","Share ward content on social media and in neighborhood Facebook groups. Help amplify community news.","","","","","https://your48.com/item.html?id=digital-newsies"
+"pb","Ward Program","Participatory Budgeting","","Annual resident-driven voting on how to spend ward infrastructure funds. Propose and vote on projects.","","","","","https://your48.com/item.html?id=pb"
+"newsletter","Ward Program","Newsletter Signup","","Weekly email newsletter with ward meetings, events, construction updates, and community news.","","","","https://mailchi.mp/the48thward/newsletter-signup","https://your48.com/item.html?id=newsletter"
+"invite-ald","Ward Program","Invite the Alderwoman","","Request a town hall or presentation at your building, condo association, or community group.","","","","https://the48thward.org/invite-the-alderwoman","https://your48.com/item.html?id=invite-ald"
+"beat","Ward Program","Beat Meetings","","Monthly police-community meetings where residents can voice safety concerns and hear crime updates.","","","","","https://your48.com/item.html?id=beat"
+"town-halls","Ward Program","Town Halls","","Twice-yearly community town halls plus periodic infrastructure town halls on major projects.","","","","","https://your48.com/item.html?id=town-halls"
+"shred","Ward Program","Shred & Recycling Events","","Free document shredding and electronics recycling events at 5853 N Broadway. Periodic throughout the year.","","","","","https://your48.com/item.html?id=shred"
+"","actions","Report a Pothole","","","","","","https://www.chicago.gov/city/en/depts/cdot/provdrs/street/svcs/report_a_pot_holeinstreet.html","https://your48.com/item.html?id="
+"","actions","Report Graffiti","","","","","","https://www.chicago.gov/city/en/depts/streets/provdrs/graffiti_blasters/svcs/graffiti_removal.html","https://your48.com/item.html?id="
+"","actions","Request Garbage Cart","","","","","","https://www.chicago.gov/city/en/depts/streets/provdrs/rodent/svcs/garbage_cart_distribution.html","https://your48.com/item.html?id="
+"","actions","Abandoned Vehicle","","","","","","https://www.chicago.gov/city/en/depts/streets/provdrs/traffic/svcs/abandoned_vehicles.html","https://your48.com/item.html?id="
+"","actions","Street Light Out","","","","","","https://www.chicago.gov/city/en/depts/cdot/provdrs/traffic_signals_andstreetlights/svcs/bldgviolstatus.html","https://your48.com/item.html?id="
+"","actions","Pay Parking Ticket","","","","","","https://www.chicago.gov/city/en/depts/fin/provdrs/parking_and_redlightcitationadministration/svcs/pay_parking_and_red-lightticketson-line.html","https://your48.com/item.html?id="
+"","actions","Pay Utility Bill","","","","","","https://www.chicago.gov/city/en/depts/fin/provdrs/utility_billing/svcs/utility-bill.html","https://your48.com/item.html?id="
+"","actions","Register Dog","","","","","","https://www.chicago.gov/city/en/depts/cacc/provdrs/care/svcs/dog_registration.html","https://your48.com/item.html?id="
+"","actions","NotifyChicago","","","","","","https://www.chicago.gov/city/en/depts/oem/provdrs/alertchicago/svcs/notifychicago.html","https://your48.com/item.html?id="
+"","actions","Construction Map","","","","","","https://chistreetwork.chicago.gov/map","https://your48.com/item.html?id="
+"","actions","Voter Registration","","","","","","https://www.chicagoelections.com","https://your48.com/item.html?id="
+"","actions","ICash Funds","","","","","","https://icash.illinoistreasurer.gov","https://your48.com/item.html?id="
+"","actions","Tree Trim Request","","","","","","https://www.chicago.gov/city/en/depts/streets/provdrs/forestry/svcs/tree_trimming.html","https://your48.com/item.html?id="
+"","actions","Rodent Complaint","","","","","","https://www.chicago.gov/city/en/depts/streets/provdrs/rodent/svcs/rodent_baiting.html","https://your48.com/item.html?id="
+"","actions","Building Violation","","","","","","https://www.chicago.gov/city/en/depts/bldgs/provdrs/inspect/svcs/building_violationsonline.html","https://your48.com/item.html?id="
+"","actions","Food Inspection","","","","","","https://www.chicago.gov/city/en/depts/cdph/provdrs/food_safety.html","https://your48.com/item.html?id="

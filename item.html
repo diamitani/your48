@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Loading… — Your48</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="nav-slot"></div>
+<div class="container" id="detailContent"></div>
+<div id="footer-slot"></div>
+<script src="data.js"></script><script src="shared.js"></script><script src="chat.js"></script>
+<script>
+initPage('');
+const svgPhone=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`;
+const svgMail=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+const svgLink=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const svgPin=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+const svgArrow=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>`;
+
+const TAG_CLASSES={ward:'tag-ward',social:'tag-social',city:'tag-city',agencies:'tag-community',elected:'tag-federal',community:'tag-community',schools:'tag-community',religious:'tag-state',businesses:'tag-program',programs:'tag-program'};
+const BACK_PAGES={ward:'directory.html',social:'directory.html',city:'services.html',agencies:'services.html',elected:'directory.html',community:'community.html',schools:'directory.html',religious:'directory.html',businesses:'directory.html',programs:'services.html'};
+
+const params=new URLSearchParams(window.location.search);
+const id=params.get('id');
+const item=id?findItem(id):null;
+
+if(!item){
+  document.getElementById('detailContent').innerHTML=`<section class="page-hero"><h1>Item not <em>found.</em></h1><p><a href="directory.html" style="color:var(--lake)">← Back to Directory</a></p></section>`;
+}else{
+  const cat=getCatForItem(id);
+  document.title=item.name+' — Your48';
+  document.querySelector('meta[name="description"]')?.setAttribute('content',item.desc||item.name);
+  
+  // Info sidebar rows
+  let infoRows='';
+  if(item.phone)infoRows+=`<div class="info-row">${svgPhone}<div><strong>Phone</strong><br><a href="tel:${item.phone.replace(/[^0-9+]/g,'')}">${item.phone}</a></div></div>`;
+  if(item.email)infoRows+=`<div class="info-row">${svgMail}<div><strong>Email</strong><br><a href="mailto:${item.email}">${item.email}</a></div></div>`;
+  if(item.addr)infoRows+=`<div class="info-row">${svgPin}<div><strong>Address</strong><br>${item.addr}, Chicago IL</div></div>`;
+  if(item.web||item.url)infoRows+=`<div class="info-row">${svgLink}<div><strong>Website</strong><br><a href="${item.web||item.url}" target="_blank">${(item.web||item.url).replace('https://','').replace('http://','').split('/')[0]}</a></div></div>`;
+  if(item.platform)infoRows+=`<div class="info-row">${svgLink}<div><strong>Platform</strong><br>${item.platform}</div></div>`;
+  if(item.cat)infoRows+=`<div class="info-row">${svgArrow}<div><strong>Category</strong><br>${item.cat}</div></div>`;
+
+  // Related items from same category
+  const related=DATA[cat.key]?.filter(i=>i.id!==id).slice(0,4)||[];
+  let relatedHtml='';
+  if(related.length){
+    relatedHtml=`<div class="related-section">
+      <div class="section-label">Also in ${cat.label} <span class="accent">— related</span></div>
+      <div class="grid-4 grid">${related.map(r=>`<a href="item.html?id=${r.id}" class="card" style="text-decoration:none;color:inherit">
+        <span class="tag ${TAG_CLASSES[cat.key]||'tag-city'}">${cat.label}</span>
+        <span class="arrow">${svgArrow}</span>
+        <h3>${r.name}</h3>
+        ${r.role?`<div class="role">${r.role}</div>`:''}
+        ${r.desc?`<p>${r.desc.substring(0,80)}${r.desc.length>80?'…':''}</p>`:''}
+      </a>`).join('')}</div></div>`;
+  }
+
+  document.getElementById('detailContent').innerHTML=`
+    <section class="detail-hero">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <a href="${BACK_PAGES[cat.key]||'directory.html'}">${cat.label}</a> / ${item.name}</div>
+      <span class="detail-tag ${TAG_CLASSES[cat.key]||'tag-city'}">${cat.label}</span>
+      <h1>${item.name}</h1>
+      ${item.role?`<div class="detail-role">${item.role}</div>`:''}
+      ${item.desc?`<p class="detail-desc">${item.desc}</p>`:''}
+    </section>
+    <section class="detail-body">
+      <div class="detail-grid">
+        <div class="detail-main">
+          <h2>About this <em>resource</em></h2>
+          <p>${item.desc||'No additional details available.'}</p>
+          ${item.web||item.url?`<p><a href="${item.web||item.url}" target="_blank" style="color:var(--lake);font-weight:600;text-decoration:none">Visit website →</a></p>`:''}
+          ${relatedHtml}
+        </div>
+        <div class="detail-sidebar">
+          <div class="info-card">
+            <h3>Contact <em>Info</em></h3>
+            ${infoRows||'<p style="font-size:13px;color:var(--ink-soft)">No contact information available. Try the ward office: 773-784-5277</p>'}
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+</script>
+</body>
+</html>

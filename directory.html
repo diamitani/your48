@@ -73,24 +73,25 @@ function makeCard(item,tag,tagClass){
   if(item.phone)meta+=`<div class="meta-row">${svgPhone}<span>${item.phone}</span></div>`;
   if(item.email)meta+=`<div class="meta-row">${svgMail}<a href="mailto:${item.email}">${item.email}</a></div>`;
   if(item.addr)meta+=`<div class="meta-row">${svgPin}<span>${item.addr}</span></div>`;
-  if(item.web)meta+=`<div class="meta-row">${svgLink}<a href="${item.web}" target="_blank">Website →</a></div>`;
-  if(item.url)meta+=`<div class="meta-row">${svgLink}<a href="${item.url}" target="_blank">Join →</a></div>`;
-  return `<div class="card" data-search="${(item.name+' '+(item.role||'')+' '+(item.desc||'')+' '+(item.platform||'')+' '+(item.addr||'')).toLowerCase()}">
+  const detailLink=item.id?`item.html?id=${item.id}`:(item.web||item.url||'#');
+  const target=item.id?'':'_blank';
+  return `<a href="${detailLink}" ${target?'target="'+target+'"':''} class="card" style="text-decoration:none;color:inherit" data-search="${(item.name+' '+(item.role||'')+' '+(item.desc||'')+' '+(item.platform||'')+' '+(item.addr||'')+' '+(item.cat||'')).toLowerCase()}" data-cat="${item.cat||''}">
     <span class="tag ${tagClass}">${tag}</span>
-    ${item.web||item.url?`<a href="${item.web||item.url}" target="_blank" class="arrow">${svgArrow}</a>`:''}
+    <span class="arrow">${svgArrow}</span>
     <h3>${item.name}</h3>
     ${item.role?`<div class="role">${item.role}</div>`:''}
     ${item.platform?`<div class="role">${item.platform}</div>`:''}
-    ${item.desc?`<p>${item.desc}</p>`:''}
+    ${item.cat?`<div class="role">${item.cat}</div>`:''}
+    ${item.desc?`<p>${item.desc.length>120?item.desc.substring(0,120)+'…':item.desc}</p>`:''}
     ${meta?`<div class="meta">${meta}</div>`:''}
-  </div>`;
+  </a>`;
 }
-document.getElementById('wardGrid').innerHTML=DATA.ward.map(d=>makeCard(d,'Ward Office','tag-ward')).join('');
-document.getElementById('electedGrid').innerHTML=DATA.elected.map(d=>makeCard(d,'Official','tag-federal')).join('');
+document.getElementById('wardGrid').innerHTML=`<div class="result-count">${DATA.ward.length} staff members</div>`+DATA.ward.map(d=>makeCard(d,'Ward Office','tag-ward')).join('');
+document.getElementById('electedGrid').innerHTML=`<div class="result-count">${DATA.elected.length} representatives</div>`+DATA.elected.map(d=>makeCard(d,'Official','tag-federal')).join('');
 document.getElementById('socialGrid').innerHTML=DATA.social.map(d=>makeCard(d,'Social','tag-social')).join('');
-document.getElementById('schoolGrid').innerHTML=DATA.schools.map(d=>makeCard(d,'School','tag-community')).join('');
+document.getElementById('schoolGrid').innerHTML=`<div class="result-count">${DATA.schools.length} schools</div>`+DATA.schools.map(d=>makeCard(d,'School','tag-community')).join('');
 document.getElementById('religiousGrid').innerHTML=DATA.religious.map(d=>makeCard(d,'Worship','tag-state')).join('');
-document.getElementById('bizGrid').innerHTML=DATA.businesses.map(d=>makeCard(d,'Business','tag-program')).join('');
+document.getElementById('bizGrid').innerHTML=`<div class="result-count">${DATA.businesses.length} businesses</div>`+DATA.businesses.map(d=>makeCard(d,'Business','tag-program')).join('');
 function filterAll(){const q=document.getElementById('globalSearch').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{c.style.display=!q||c.dataset.search.includes(q)?'':'none'});}
 </script>
 </body>
