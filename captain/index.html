@@ -303,16 +303,17 @@ body{
 
 <!-- ═══ PRECINCTS ═══ -->
 <section class="section" id="sec-precincts">
-<div class="section-header"><h2>📍 Precinct Directory</h2><p>Detailed cards with top businesses, schools, faith institutions, and contacts per precinct</p></div>
+<div class="section-header"><h2>📍 Precinct Directory</h2><p>Detailed cards with top businesses, schools, faith institutions, and contacts per precinct — click any filter to explore</p></div>
 
-<div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+<div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
   <input type="text" id="p-search" placeholder="🔍 Search precincts…" oninput="renderPrecincts()" style="width:240px;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem">
-  <div class="filter-chips" id="nbh-chips"></div>
   <div style="margin-left:auto;display:flex;gap:4px">
     <button class="btn btn-sm" id="view-grid" onclick="setView('grid')" style="background:var(--navy);color:#fff">⊞ Grid</button>
     <button class="btn btn-sm btn-outline" id="view-table" onclick="setView('table')">☰ Table</button>
   </div>
 </div>
+<div class="filter-chips" id="nbh-chips" style="margin-bottom:4px"></div>
+<div class="filter-chips" id="cat-chips" style="margin-bottom:12px"></div>
 <div id="precinct-grid"></div>
 </section>
 
@@ -517,8 +518,8 @@ function mkGeo(){
 function filterMap(){if(mapInst?.getSource('resources'))mapInst.getSource('resources').setData(mkGeo())}
 
 // ═══════════════════════════ PRECINCTS ═══════════════════════════
-let precinctView='grid',pNbhFilter='';
-let ENRICHED={}; // loaded from precinct_enriched.json
+let precinctView='grid',pNbhFilter='',pCatFilter='';
+let ENRICHED={};
 
 function setView(v){precinctView=v;document.getElementById('view-grid').style.background=v==='grid'?'var(--navy)':'';document.getElementById('view-grid').style.color=v==='grid'?'#fff':'';document.getElementById('view-table').className=v==='table'?'btn btn-sm':'btn btn-sm btn-outline';document.getElementById('view-table').style.background=v==='table'?'var(--navy)':'';document.getElementById('view-table').style.color=v==='table'?'#fff':'';renderPrecincts()}
 
@@ -526,24 +527,51 @@ function renderPrecincts(){
   const q=(gid('p-search')?.value||'').toLowerCase();
   let ps=MAP.precincts.filter(p=>!q||(p.name+' '+(p.neighborhood||'')).toLowerCase().includes(q));
   if(pNbhFilter)ps=ps.filter(p=>(p.neighborhood||'')===pNbhFilter);
+  // Category filter: only show precincts that HAVE that resource type
+  if(pCatFilter){
+    ps=ps.filter(p=>{
+      const x=MAP.dashboard.find(r=>r.id===p.id)||{};
+      const map={'business':'businesses','school':'schools','faith':'religious_institutions','park':'parks','gov':'government_buildings','service':'community_services'};
+      return (x[map[pCatFilter]]||0)>0;
+    });
+  }
   const total=ps.length,pages=Math.ceil(total/pSize);
   if(pPage>=pages)pPage=Math.max(0,pages-1);
   ps=ps.slice(pPage*pSize,(pPage+1)*pSize);
   const d=MAP.dashboard,g=document.getElementById('precinct-grid');
   
-  // Build neighborhood chips
+  // Neighborhood chips
   const nbhs=[...new Set(MAP.precincts.map(p=>p.neighborhood).filter(Boolean))].sort();
   const chipEl=gid('nbh-chips');if(chipEl)chipEl.innerHTML=nbhs.map(n=>`<button class="chip${pNbhFilter===n?' active':''}" onclick="pNbhFilter=pNbhFilter===n?'':n;pPage=0;renderPrecincts()">${n}</button>`).join('');
   
+  // Category filter chips
+  const cats=[{id:'business',icon:'🟠',label:'Businesses'},{id:'school',icon:'🟢',label:'Schools'},{id:'faith',icon:'🟣',label:'Faith'},{id:'park',icon:'🌳',label:'Parks'},{id:'gov',icon:'🔴',label:'Gov'},{id:'service',icon:'🩵',label:'Services'}];
+  const catEl=gid('cat-chips');if(catEl)catEl.innerHTML=cats.map(c=>`<button class="chip${pCatFilter===c.id?' active':''}" onclick="pCatFilter=pCatFilter===c.id?'':c.id;pPage=0;renderPrecincts()">${c.icon} ${c.label}</button>`).join('');
+  
   if(precinctView==='table'){
-    g.innerHTML=`<table class="data-table"><thead><tr><th>Precinct</th><th>Neighborhood</th><th>Biz</th><th>Schools</th><th>Faith</th><th>Parks</th><th>Gov</th><th>Services</th><th>Residential</th><th>Units</th></tr></thead><tbody>${ps.map(p=>{const x=d.find(r=>r.id===p.id)||{};return`<tr onclick="showPrecinct('${p.id}')" style="cursor:pointer"><td><strong>${p.name}</strong></td><td>${p.neighborhood||'—'}</td><td>${x.businesses||0}</td><td>${x.schools||0}</td><td>${x.religious_institutions||0}</td><td>${x.parks||0}</td><td>${x.government_buildings||0}</td><td>${x.community_services||0}</td><td>${x.residential_buildings||0}</td><td>${MAP.resources.filter(r=>r.source_table==='residential'&&r.precinct_id===p.id).length?x.residential_buildings:'—'}</td></tr>`}).join('')}</tbody></table>`;
+    g.innerHTML=`<table class="data-table"><thead><tr><th>Precinct</th><th>Neighborhood</th><th>Biz</th><th>Schools</th><th>Faith</th><th>Parks</th><th>Gov</th><th>Services</th><th>Bldgs</th></tr></thead><tbody>${ps.map(p=>{const x=d.find(r=>r.id===p.id)||{};return`<tr style="cursor:pointer"><td onclick="showPrecinct('${p.id}')"><strong>${p.name}</strong></td><td onclick="showPrecinct('${p.id}')">${p.neighborhood||'—'}</td><td><a href="#" onclick="event.stopPropagation();jumpToMap('${p.id}','business')" style="color:var(--navy);font-weight:600">${x.businesses||0}</a></td><td><a href="#" onclick="event.stopPropagation();jumpToMap('${p.id}','school')" style="color:var(--navy);font-weight:600">${x.schools||0}</a></td><td><a href="#" onclick="event.stopPropagation();jumpToMap('${p.id}','religious')" style="color:var(--navy);font-weight:600">${x.religious_institutions||0}</a></td><td><a href="#" onclick="event.stopPropagation();jumpToMap('${p.id}','park')" style="color:var(--navy);font-weight:600">${x.parks||0}</a></td><td>${x.government_buildings||0}</td><td>${x.community_services||0}</td><td>${x.residential_buildings||0}</td></tr>`}).join('')}</tbody></table>`;
   }else{
-    g.innerHTML=`<div class="card-grid">${ps.map(p=>{const x=d.find(r=>r.id===p.id)||{};const e=ENRICHED[p.id]||{};const topBiz=(e.biz||[]).slice(0,3);const topSchools=(e.schools||[]).slice(0,3);const topFaith=(e.religious||[]).slice(0,2);return`<div class="saas-card" onclick="showPrecinct('${p.id}')" style="cursor:pointer"><div class="card-top"><h4>${p.name}</h4><div class="sub">${p.neighborhood||'48th Ward'}</div></div><div class="card-stats"><div class="card-stat"><div class="val">${x.businesses||0}</div><div class="lbl">Biz</div></div><div class="card-stat"><div class="val">${x.schools||0}</div><div class="lbl">Schools</div></div><div class="card-stat"><div class="val">${x.religious_institutions||0}</div><div class="lbl">Faith</div></div><div class="card-stat"><div class="val">${x.residential_buildings||0}</div><div class="lbl">Bldgs</div></div></div>${topBiz.length||topSchools.length||topFaith.length?`<div class="card-preview">${topBiz.map(b=>`<div class="item"><span class="dot biz"></span>${b.name}${b.cuisine?' · <span style="color:var(--navy)">'+b.cuisine+'</span>':''}${b.license_description?'<br><span style="font-size:0.68rem;margin-left:12px">'+b.license_description.substring(0,80)+'</span>':''}</div>`).join('')}${topSchools.map(s=>`<div class="item"><span class="dot school"></span>${s.name}${s.principal_name?' · '+s.principal_name:''}</div>`).join('')}${topFaith.map(f=>`<div class="item"><span class="dot faith"></span>${f.name} · ${f.religion||''}</div>`).join('')}</div>`:''}</div>`}).join('')}</div>`;
+    g.innerHTML=`<div class="card-grid">${ps.map(p=>{const x=d.find(r=>r.id===p.id)||{};const e=ENRICHED[p.id]||{};const topBiz=(e.biz||[]).slice(0,3);const topSchools=(e.schools||[]).slice(0,3);const topFaith=(e.religious||[]).slice(0,2);return`<div class="saas-card"><div class="card-top" onclick="showPrecinct('${p.id}')" style="cursor:pointer"><h4>${p.name}</h4><div class="sub">${p.neighborhood||'48th Ward'}</div></div><div class="card-stats"><div class="card-stat" onclick="jumpToMap('${p.id}','business')" style="cursor:pointer" title="View businesses on map"><div class="val">${x.businesses||0}</div><div class="lbl">Biz</div></div><div class="card-stat" onclick="jumpToMap('${p.id}','school')" style="cursor:pointer" title="View schools on map"><div class="val">${x.schools||0}</div><div class="lbl">Schools</div></div><div class="card-stat" onclick="jumpToMap('${p.id}','religious')" style="cursor:pointer" title="View faith on map"><div class="val">${x.religious_institutions||0}</div><div class="lbl">Faith</div></div><div class="card-stat" onclick="showPrecinct('${p.id}')" style="cursor:pointer" title="View precinct details"><div class="val">${x.residential_buildings||0}</div><div class="lbl">Bldgs</div></div></div>${topBiz.length||topSchools.length||topFaith.length?`<div class="card-preview">${topBiz.map(b=>`<div class="item" onclick="event.stopPropagation();jumpToMap('${p.id}','business')" style="cursor:pointer;border-radius:4px;padding:4px" onmouseover="this.style.background='#FFF3E0'" onmouseout="this.style.background=''"><span class="dot biz"></span>${b.name}${b.cuisine?' · <span style="color:var(--navy)">'+b.cuisine+'</span>':''}${b.license_description?'<br><span style="font-size:0.68rem;margin-left:12px">'+b.license_description.substring(0,80)+'</span>':''}</div>`).join('')}${topSchools.map(s=>`<div class="item" onclick="event.stopPropagation();jumpToMap('${p.id}','school')" style="cursor:pointer;border-radius:4px;padding:4px" onmouseover="this.style.background='#E8F5E9'" onmouseout="this.style.background=''"><span class="dot school"></span>${s.name}${s.principal_name?' · '+s.principal_name:''}</div>`).join('')}${topFaith.map(f=>`<div class="item" onclick="event.stopPropagation();jumpToMap('${p.id}','religious')" style="cursor:pointer;border-radius:4px;padding:4px" onmouseover="this.style.background='#F3E5F5'" onmouseout="this.style.background=''"><span class="dot faith"></span>${f.name} · ${f.religion||''}</div>`).join('')}</div>`:''}</div>`}).join('')}</div>`;
   }
   
   let pg=g.parentElement.querySelector('.pagination');
   if(!pg){pg=document.createElement('div');pg.className='pagination';g.parentElement.appendChild(pg)}
   pg.innerHTML=pages>1?`<button onclick="pPage=0;renderPrecincts()" ${pPage===0?'disabled':''}>««</button><button onclick="pPage--;renderPrecincts()" ${pPage===0?'disabled':''}>«</button><span class="info">${pPage+1}/${pages} (${total})</span><button onclick="pPage++;renderPrecincts()" ${pPage>=pages-1?'disabled':''}>»</button><button onclick="pPage=${pages-1};renderPrecincts()" ${pPage>=pages-1?'disabled':''}>»»</button>`:'';
+}
+
+function jumpToMap(pid,type){
+  if(!mapInst)return;
+  gid('m-precinct').value=pid;
+  gid('m-type').value=type;
+  filterMap();
+  navTo('map');
+  // fly to precinct area
+  const resources=MAP.resources.filter(r=>r.precinct_id===pid&&r.source_table===type&&r.lat);
+  if(resources.length>0){
+    const lats=resources.map(r=>r.lat),lons=resources.map(r=>r.lon);
+    const bounds=[[Math.min(...lons),Math.min(...lats)],[Math.max(...lons),Math.max(...lats)]];
+    mapInst.fitBounds(bounds,{padding:60,maxZoom:17});
+  }
 }
 
 function showPrecinct(pid){
