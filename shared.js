@@ -6,6 +6,7 @@ function renderNav(active){
     {href:'services.html',label:'Services'},
     {href:'community.html',label:'Community'},
     {href:'dates.html',label:'Dates'},
+    {href:'captain/',label:'Captains',icon:'🔒'},
   ];
   return `<div class="topbar"><div class="container">
     <a href="index.html" class="wordmark"><span class="pre">your</span><span class="num">48<span class="dot">.</span></span></a>

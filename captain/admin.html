@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>48th Ward Admin — Resource Manager</title>
+<style>
+:root {
+  --bg: #0f0f1a;
+  --panel: #1a1a2e;
+  --accent: #16213e;
+  --text: #e0e0e0;
+  --text-dim: #8892b0;
+  --highlight: #e94560;
+  --success: #4caf50;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg); color: var(--text); min-height:100vh;
+  padding: 20px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--highlight);
+}
+header h1 { font-size: 1.4rem; }
+header h1 span { color: var(--highlight); }
+.header-actions { display:flex; gap: 8px; }
+.btn {
+  padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer;
+  font-size: 0.8rem; font-weight: 600; transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-primary { background: var(--highlight); color: #fff; }
+.btn-primary:hover { background: #d63850; }
+.btn-outline { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--text); }
+.btn-outline:hover { border-color: var(--highlight); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-sm { padding: 4px 10px; font-size: 0.7rem; }
+
+/* Tabs */
+.tabs { display:flex; gap:2px; margin-bottom: 20px; }
+.tab {
+  padding: 8px 16px; background: var(--panel); border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-dim); cursor: pointer; font-size: 0.82rem; border-radius: 6px 6px 0 0;
+  font-family: inherit;
+}
+.tab.active { background: var(--accent); color: var(--text); border-bottom-color: var(--highlight); }
+
+/* Forms */
+.panel {
+  background: var(--panel); border-radius: 8px; padding: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.form-grid {
+  display:grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.form-group { display:flex; flex-direction:column; gap:4px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);
+  background: #0f0f1a; color: var(--text); font-size: 0.85rem; font-family: inherit;
+}
+.form-group textarea { min-height: 60px; resize: vertical; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--highlight);
+}
+
+/* Resource list */
+.resource-list { margin-top: 20px; }
+.resource-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.82rem;
+}
+.resource-row:hover { background: rgba(255,255,255,0.02); }
+.resource-row .info { flex:1; }
+.resource-row .info strong { display:block; }
+.resource-row .info small { color: var(--text-dim); }
+.resource-row .actions { display:flex; gap:4px; flex-shrink:0; }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; right:24px; z-index:100;
+  padding: 12px 20px; border-radius: 8px; font-size: 0.82rem;
+  background: var(--success); color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease;
+  display:none;
+}
+.toast.error { background: var(--highlight); }
+@keyframes slideIn { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+/* Stats */
+.stats-row {
+  display:flex; gap:12px; margin-bottom: 20px;
+}
+.stat-card {
+  flex:1; background: var(--panel); border-radius: 8px; padding: 14px;
+  border: 1px solid rgba(255,255,255,0.06); text-align: center;
+}
+.stat-card .num { font-size: 1.6rem; font-weight: 700; color: var(--highlight); }
+.stat-card .lbl { font-size: 0.7rem; color: var(--text-dim); margin-top: 2px; }
+
+.hidden { display:none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>48th Ward <span>Admin</span></h1>
+      <div style="font-size:0.75rem;color:var(--text-dim)">Resource Manager — Add, edit, and manage precinct data</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="exportAllCSV()">📥 Export All CSV</button>
+      <button class="btn btn-outline" onclick="window.open('/','_blank')">🗺️ Open Map</button>
+    </div>
+  </header>
+
+  <div class="stats-row" id="stats"></div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('business')">Businesses</button>
+    <button class="tab" onclick="switchTab('contact')">Contacts</button>
+    <button class="tab" onclick="switchTab('school')">Schools</button>
+    <button class="tab" onclick="switchTab('religious')">Religious</button>
+    <button class="tab" onclick="switchTab('service')">Services</button>
+    <button class="tab" onclick="switchTab('gameplan')">Game Plans</button>
+  </div>
+
+  <div class="panel" id="form-panel">
+    <h3 style="margin-bottom:14px" id="form-title">Add Business</h3>
+    <div class="form-grid" id="form-fields"></div>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="btn btn-primary" onclick="saveResource()">💾 Save</button>
+      <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="resource-list" id="resource-list">
+    <h3 style="margin-bottom:12px" id="list-title">Recent Entries</h3>
+    <div id="list-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA STORE (in-memory + localStorage) ───
+const STORAGE_KEY = '48th-ward-admin-data';
+let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"businesses":[],"contacts":[],"schools":[],"religious":[],"services":[],"gameplans":[],"precincts":[]}');
+let currentTab = 'business';
+let editingId = null;
+
+// ─── FORM SCHEMAS ───
+const SCHEMAS = {
+  business: {
+    title: 'Business',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'category',label:'Category',type:'select',options:['Restaurant','Restaurant/Bar','Bar/Nightlife','Cafe','Retail Shop','Grocery/Food Retail','Beauty/Salon','Auto Services','Gym/Fitness','Financial','Laundromat/Dry Cleaner','Doctor Office','Healthcare Specialist','Healthcare/Medical','Dental Office','Pharmacy','Veterinary','Pet Services/Vet','Office','Studio/Arts','Entertainment','Cinema','Theatre','Cultural/Tourism','Other Business'],required:true},
+      {id:'name',label:'Business Name',type:'text',required:true},
+      {id:'address',label:'Address',type:'text',required:true},
+      {id:'phone',label:'Phone',type:'text'},
+      {id:'website',label:'Website',type:'text'},
+      {id:'email',label:'Email',type:'text'},
+      {id:'hours',label:'Hours',type:'text'},
+      {id:'owner_name',label:'Owner Name',type:'text'},
+      {id:'owner_phone',label:'Owner Phone',type:'text'},
+      {id:'owner_email',label:'Owner Email',type:'text'},
+      {id:'manager_name',label:'Manager Name',type:'text'},
+      {id:'community_friendly',label:'Community Friendly',type:'select',options:['Unknown','Yes','No']},
+      {id:'large_space',label:'Can Host Events',type:'select',options:['Unknown','Yes','No']},
+      {id:'notes',label:'Notes',type:'textarea'},
+    ]
+  },
+  contact: {
+    title: 'Key Contact',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'name',label:'Name',type:'text',required:true},
+      {id:'role',label:'Role',type:'select',options:['HOA President','PTA President','Block Club Leader','Neighborhood Association President','Business Owner','Clergy','Community Activist','Precinct Captain','Building Manager','Other'],required:true},
+      {id:'organization',label:'Organization',type:'text'},
+      {id:'address',label:'Address',type:'text'},
+      {id:'phone',label:'Phone',type:'text'},
+      {id:'email',label:'Email',type:'text'},
+      {id:'relationship_status',label:'Relationship',type:'select',options:['Ally','Neutral','Opposed','Unknown']},
+      {id:'notes',label:'Notes',type:'textarea'},
+    ]
+  },
+  school: {
+    title: 'School',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'name',label:'School Name',type:'text',required:true},
+      {id:'type',label:'Type',type:'select',options:['Public','Private','Charter','Magnet','College/University'],required:true},
+      {id:'level',label:'Level',type:'select',options:['Elementary','Middle','High','K-8','K-12','College','Preschool']},
+      {id:'address',label:'Address',type:'text',required:true},
+      {id:'phone',label:'Phone',type:'text'},
+      {id:'website',label:'Website',type:'text'},
+      {id:'principal_name',label:'Principal',type:'text'},
+      {id:'principal_email',label:'Principal Email',type:'text'},
+      {id:'pta_president',label:'PTA President',type:'text'},
+      {id:'pta_email',label:'PTA Email',type:'text'},
+      {id:'enrollment',label:'Enrollment',type:'text'},
+      {id:'notes',label:'Notes',type:'textarea'},
+    ]
+  },
+  religious: {
+    title: 'Religious Institution',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'name',label:'Name',type:'text',required:true},
+      {id:'religion',label:'Religion',type:'select',options:['Christian','Catholic','Jewish','Muslim','Buddhist','Hindu','Other'],required:true},
+      {id:'denomination',label:'Denomination',type:'text'},
+      {id:'address',label:'Address',type:'text',required:true},
+      {id:'phone',label:'Phone',type:'text'},
+      {id:'website',label:'Website',type:'text'},
+      {id:'leader_name',label:'Leader Name',type:'text'},
+      {id:'leader_email',label:'Leader Email',type:'text'},
+      {id:'congregation_size',label:'Congregation Size',type:'text'},
+      {id:'notes',label:'Notes',type:'textarea'},
+    ]
+  },
+  service: {
+    title: 'Community Service',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'name',label:'Organization Name',type:'text',required:true},
+      {id:'type',label:'Type',type:'select',options:['Food Pantry','Senior Center','Youth Center','Shelter','Legal Aid','Health Clinic','Mutual Aid','Immigration Services','Non-Profit','Other'],required:true},
+      {id:'address',label:'Address',type:'text',required:true},
+      {id:'phone',label:'Phone',type:'text'},
+      {id:'website',label:'Website',type:'text'},
+      {id:'contact_person',label:'Contact Person',type:'text'},
+      {id:'services_offered',label:'Services Offered',type:'textarea'},
+      {id:'notes',label:'Notes',type:'textarea'},
+    ]
+  },
+  gameplan: {
+    title: 'Game Plan',
+    fields: [
+      {id:'precinct_id',label:'Precinct',type:'select',options:precinctOptions,required:true},
+      {id:'plan_name',label:'Plan Name',type:'text',required:true},
+      {id:'objective',label:'Objective',type:'textarea',required:true},
+      {id:'strategy_summary',label:'Strategy Summary',type:'textarea'},
+      {id:'key_locations',label:'Key Locations',type:'textarea'},
+      {id:'status',label:'Status',type:'select',options:['active','completed','archived']},
+    ]
+  }
+};
+
+function precinctOptions() {
+  return ['P01','P02','P03','P04','P05','P06','P07','P08','P09','P10',
+    'P11','P12','P13','P14','P15','P16','P17','P18','P19','P20',
+    'P21','P22','P23','P24','P25','P26','P27','P28','P29','P30',
+    'P31','P32','P33','P34','P35'];
+}
+
+// ─── RENDER ───
+function switchTab(tab) {
+  currentTab = tab;
+  editingId = null;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('form-title').textContent = 'Add ' + SCHEMAS[tab].title;
+  renderForm();
+  renderList();
+}
+
+function renderForm(data = {}) {
+  const schema = SCHEMAS[currentTab];
+  const fields = schema.fields;
+  const container = document.getElementById('form-fields');
+  container.innerHTML = fields.map(f => {
+    const val = data[f.id] || '';
+    const req = f.required ? 'required' : '';
+    if (f.type === 'select') {
+      const opts = typeof f.options === 'function' ? f.options() : f.options;
+      return `<div class="form-group"><label>${f.label}</label>
+        <select id="f_${f.id}" ${req}>
+          <option value="">— Select —</option>
+          ${opts.map(o => `<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join('')}
+        </select></div>`;
+    }
+    if (f.type === 'textarea') {
+      return `<div class="form-group full"><label>${f.label}</label>
+        <textarea id="f_${f.id}" ${req}>${val}</textarea></div>`;
+    }
+    return `<div class="form-group"><label>${f.label}</label>
+      <input type="${f.type}" id="f_${f.id}" value="${val.replace(/"/g,'&quot;')}" ${req}></div>`;
+  }).join('');
+}
+
+function renderList() {
+  const key = currentTab + 's';  // businesses, contacts, etc.
+  const items = db[key] || [];
+  const container = document.getElementById('list-content');
+  document.getElementById('list-title').textContent = `${SCHEMAS[currentTab].title} Entries (${items.length})`;
+  
+  if (items.length === 0) {
+    container.innerHTML = '<div style="padding:20px;color:var(--text-dim);text-align:center">No entries yet. Add one above.</div>';
+    return;
+  }
+  
+  container.innerHTML = items.slice().reverse().slice(0, 50).map((item, i) => {
+    const idx = items.length - 1 - i;
+    const name = item.name || item.plan_name || '(unnamed)';
+    const sub = item.address || item.role || item.objective || '';
+    return `
+    <div class="resource-row">
+      <div class="info">
+        <strong>${name}</strong>
+        <small>${sub} · ${item.precinct_id || ''}</small>
+      </div>
+      <div class="actions">
+        <button class="btn btn-outline btn-sm" onclick="editResource(${idx})">✏️</button>
+        <button class="btn btn-outline btn-sm" onclick="deleteResource(${idx})" style="color:var(--highlight)">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderStats() {
+  const st = document.getElementById('stats');
+  st.innerHTML = [
+    {lbl:'Businesses',num: db.businesses.length},
+    {lbl:'Contacts',num: db.contacts.length},
+    {lbl:'Schools',num: db.schools.length},
+    {lbl:'Religious',num: db.religious.length},
+    {lbl:'Services',num: db.services.length},
+    {lbl:'Game Plans',num: db.gameplans.length},
+  ].map(s => `<div class="stat-card"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+}
+
+// ─── CRUD ───
+function saveResource() {
+  const schema = SCHEMAS[currentTab];
+  const key = currentTab + 's';
+  const data = { id: editingId || Date.now(), created: new Date().toISOString() };
+  
+  for (const f of schema.fields) {
+    const el = document.getElementById('f_' + f.id);
+    if (!el) continue;
+    data[f.id] = el.value.trim();
+    if (f.required && !data[f.id]) {
+      showToast('Please fill in: ' + f.label, true);
+      return;
+    }
+  }
+  
+  if (editingId !== null) {
+    // Update existing
+    const idx = db[key].findIndex(x => x.id === editingId);
+    if (idx >= 0) db[key][idx] = data;
+  } else {
+    // Add new
+    db[key].push(data);
+  }
+  
+  persist();
+  editingId = null;
+  clearForm();
+  renderList();
+  renderStats();
+  showToast('✅ Saved!');
+}
+
+function editResource(idx) {
+  const key = currentTab + 's';
+  const item = db[key][idx];
+  editingId = item.id;
+  document.getElementById('form-title').textContent = 'Edit ' + SCHEMAS[currentTab].title;
+  renderForm(item);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteResource(idx) {
+  if (!confirm('Delete this entry?')) return;
+  const key = currentTab + 's';
+  db[key].splice(idx, 1);
+  persist();
+  renderList();
+  renderStats();
+  showToast('Deleted');
+}
+
+function clearForm() {
+  editingId = null;
+  document.getElementById('form-title').textContent = 'Add ' + SCHEMAS[currentTab].title;
+  renderForm();
+}
+
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+}
+
+// ─── EXPORT ───
+function exportAllCSV() {
+  let csv = '';
+  for (const [key, items] of Object.entries(db)) {
+    if (items.length === 0) continue;
+    csv += `\n=== ${key.toUpperCase()} ===\n`;
+    const headers = Object.keys(items[0]).filter(k => k !== 'id');
+    csv += headers.join(',') + '\n';
+    for (const item of items) {
+      csv += headers.map(h => '"' + (item[h] || '').replace(/"/g,'""') + '"').join(',') + '\n';
+    }
+  }
+  download('48th-ward-admin-export.csv', csv);
+  showToast('📥 CSV downloaded! Send to Patrick to import into the master database.');
+}
+
+function download(filename, text) {
+  const blob = new Blob([text], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── TOAST ───
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+
+// ─── INIT ───
+renderForm();
+renderStats();
+switchTab('business'); // force initial render
+</script>
+</body>
+</html>

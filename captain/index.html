@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>48th Ward Democratic Platform</title>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --chicago-navy: #1A3A5C;
+  --chicago-red: #C41E3A;
+  --chicago-blue: #B3DDF2;
+  --chicago-gold: #FFC907;
+  --chicago-white: #FFFFFF;
+  --chicago-gray: #F4F4F4;
+  --chicago-dark: #1A1A1A;
+  --chicago-mid: #555555;
+  --chicago-light: #E8E8E8;
+  --bg: #F5F6FA;
+  --card: #FFFFFF;
+  --border: #E0E0E0;
+  --text: #1A1A1A;
+  --text-dim: #666666;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --radius: 10px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg); color: var(--text); min-height:100vh;
+  display:flex; flex-direction:column;
+}
+
+/* ── TOP NAV ── */
+#topnav {
+  background: var(--chicago-navy); color: var(--chicago-white);
+  padding: 0 24px; height: 56px; display:flex; align-items:center;
+  justify-content:space-between; flex-shrink:0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position:sticky; top:0; z-index:100;
+}
+#topnav .brand {
+  display:flex; align-items:center; gap:10px; font-weight:700; font-size:1rem;
+}
+#topnav .brand .star { color: var(--chicago-gold); font-size:1.3rem; }
+#topnav .brand .city { font-weight:400; opacity:0.8; font-size:0.8rem; }
+#topnav nav { display:flex; gap:2px; }
+#topnav nav a {
+  color: rgba(255,255,255,0.7); text-decoration:none; padding:8px 14px;
+  border-radius:6px; font-size:0.82rem; font-weight:500; transition:all 0.2s;
+  display:flex; align-items:center; gap:6px;
+}
+#topnav nav a:hover { color:#fff; background:rgba(255,255,255,0.1); }
+#topnav nav a.active { color:#fff; background:rgba(255,255,255,0.15); font-weight:600; }
+#topnav .user-area { display:flex; align-items:center; gap:12px; font-size:0.78rem; }
+#topnav .user-area .badge {
+  background: var(--chicago-red); padding:3px 10px; border-radius:12px; font-weight:600;
+}
+
+/* ── MAIN LAYOUT ── */
+#main { flex:1; display:flex; overflow:hidden; }
+
+/* ── SECTION PANEL ── */
+.section { display:none; flex:1; overflow-y:auto; padding:24px; flex-direction:column; }
+.section.active { display:flex; }
+.section-header {
+  margin-bottom:20px; padding-bottom:16px;
+  border-bottom: 3px solid var(--chicago-navy);
+}
+.section-header h2 { font-size:1.5rem; color:var(--chicago-navy); font-weight:700; }
+.section-header p { color:var(--text-dim); font-size:0.85rem; margin-top:4px; }
+
+/* ── CARDS ── */
+.card {
+  background:var(--card); border-radius:var(--radius); padding:20px;
+  border:1px solid var(--border); box-shadow:var(--shadow);
+}
+.card-header { font-weight:700; font-size:0.9rem; margin-bottom:12px; color:var(--chicago-navy); }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+
+/* ── STAT CARDS ── */
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin-bottom:24px; }
+.stat-card {
+  background:var(--card); border-radius:var(--radius); padding:18px;
+  border:1px solid var(--border); box-shadow:var(--shadow);
+  text-align:center;
+}
+.stat-card .num { font-size:2rem; font-weight:800; color:var(--chicago-navy); }
+.stat-card .lbl { font-size:0.75rem; color:var(--text-dim); margin-top:2px; text-transform:uppercase; letter-spacing:0.5px; }
+.stat-card.accent .num { color:var(--chicago-red); }
+
+/* ── BUTTONS ── */
+.btn {
+  padding:8px 16px; border:none; border-radius:6px; cursor:pointer;
+  font-size:0.82rem; font-weight:600; transition:all 0.2s; font-family:inherit;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.btn-primary { background:var(--chicago-navy); color:#fff; }
+.btn-primary:hover { background:#152d4a; }
+.btn-danger { background:var(--chicago-red); color:#fff; }
+.btn-danger:hover { background:#a0192e; }
+.btn-outline { background:none; border:1.5px solid var(--chicago-navy); color:var(--chicago-navy); }
+.btn-outline:hover { background:var(--chicago-navy); color:#fff; }
+.btn-sm { padding:4px 10px; font-size:0.72rem; }
+.btn-gold { background:var(--chicago-gold); color:var(--chicago-dark); }
+
+/* ── FORMS ── */
+.form-group { margin-bottom:12px; }
+.form-group label { display:block; font-size:0.75rem; font-weight:600; color:var(--text-dim); margin-bottom:4px; text-transform:uppercase; }
+.form-group input, .form-group select, .form-group textarea {
+  width:100%; padding:10px 12px; border-radius:6px; border:1.5px solid var(--border);
+  font-size:0.85rem; font-family:inherit; background:var(--chicago-white);
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline:none; border-color:var(--chicago-navy); box-shadow:0 0 0 3px rgba(26,58,92,0.1);
+}
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+/* ── TABLE ── */
+.data-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+.data-table th {
+  text-align:left; padding:10px 12px; background:var(--chicago-navy);
+  color:var(--chicago-white); font-weight:600; font-size:0.72rem; text-transform:uppercase;
+}
+.data-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+.data-table tr:hover { background:var(--chicago-gray); }
+.data-table .badge {
+  display:inline-block; padding:2px 8px; border-radius:10px; font-size:0.68rem; font-weight:600;
+}
+.badge-blue { background:#E3F2FD; color:#1565C0; }
+.badge-red { background:#FFEBEE; color:#C62828; }
+.badge-green { background:#E8F5E9; color:#2E7D32; }
+.badge-purple { background:#F3E5F5; color:#6A1B9A; }
+.badge-gold { background:#FFF8E1; color:#F57F17; }
+
+/* ── ANNOUNCEMENTS ── */
+.announcement {
+  padding:14px 18px; border-radius:var(--radius); margin-bottom:10px;
+  border-left:4px solid var(--chicago-red); background:var(--card);
+  box-shadow:var(--shadow);
+}
+.announcement .meta { font-size:0.7rem; color:var(--text-dim); }
+.announcement h4 { font-size:0.9rem; margin:4px 0; }
+.announcement p { font-size:0.8rem; color:var(--text-dim); }
+.announcement.pinned { border-left-color:var(--chicago-gold); }
+
+/* ── FILE CARDS ── */
+.file-card {
+  display:flex; align-items:center; gap:12px; padding:14px;
+  background:var(--card); border-radius:var(--radius); border:1px solid var(--border);
+  margin-bottom:8px;
+}
+.file-card .icon { font-size:1.8rem; }
+.file-card .info { flex:1; }
+.file-card .info strong { font-size:0.85rem; display:block; }
+.file-card .info small { color:var(--text-dim); font-size:0.72rem; }
+
+/* ── KB ARTICLE ── */
+.kb-article {
+  padding:20px; background:var(--card); border-radius:var(--radius);
+  border:1px solid var(--border); margin-bottom:12px; cursor:pointer;
+  transition:all 0.2s;
+}
+.kb-article:hover { box-shadow:var(--shadow); border-color:var(--chicago-navy); }
+.kb-article h4 { color:var(--chicago-navy); margin-bottom:4px; }
+.kb-article .excerpt { font-size:0.8rem; color:var(--text-dim); }
+.kb-article .tag {
+  display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.65rem;
+  background:var(--chicago-gray); color:var(--text-dim); margin:4px 4px 0 0;
+}
+
+/* ── MAP SECTION ── */
+#map-container { flex:1; position:relative; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); }
+#map-view { width:100%; height:100%; min-height:500px; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:200;
+  background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center;
+}
+.modal {
+  background:var(--card); border-radius:var(--radius); padding:24px; max-width:600px;
+  width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.2);
+}
+.modal h3 { margin-bottom:16px; color:var(--chicago-navy); }
+
+/* ── CHARTS ── */
+.chart-container { position:relative; height:300px; margin-bottom:20px; }
+
+/* ── TOAST ── */
+#toast {
+  position:fixed; bottom:24px; right:24px; z-index:300; padding:12px 20px;
+  border-radius:8px; font-size:0.82rem; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  display:none; animation:slideIn 0.3s ease;
+}
+#toast.success { background:#2E7D32; color:#fff; }
+#toast.error { background:var(--chicago-red); color:#fff; }
+@keyframes slideIn { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+/* ── LOGIN ── */
+#login-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:500;
+  background:var(--chicago-navy); display:flex; align-items:center; justify-content:center;
+}
+.login-box {
+  background:#fff; padding:40px; border-radius:16px; text-align:center;
+  max-width:400px; width:90%; box-shadow:0 16px 48px rgba(0,0,0,0.3);
+}
+.login-box .shield { font-size:3rem; margin-bottom:12px; }
+.login-box h2 { color:var(--chicago-navy); margin-bottom:4px; }
+.login-box p { color:var(--text-dim); font-size:0.85rem; margin-bottom:20px; }
+.login-box input {
+  width:100%; padding:12px; border-radius:8px; border:2px solid var(--border);
+  text-align:center; font-size:1rem; margin-bottom:12px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px) {
+  .card-grid { grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+}
+@media (max-width:768px) {
+  #topnav { padding:0 8px; height:auto; flex-wrap:wrap; min-height:48px; }
+  #topnav .brand { font-size:0.8rem; }
+  #topnav .brand .city { display:none; }
+  #topnav nav { overflow-x:auto; flex-wrap:nowrap; gap:0; }
+  #topnav nav a { padding:6px 8px; font-size:0.68rem; white-space:nowrap; }
+  .form-row { grid-template-columns:1fr; }
+  .stat-grid { grid-template-columns:repeat(2,1fr); }
+  .section { padding:12px; }
+  .card-grid { grid-template-columns:1fr; }
+  #map-container { min-height:300px; }
+}
+@media (max-width:480px) {
+  #topnav nav a { padding:4px 6px; font-size:0.62rem; }
+  .stat-grid { grid-template-columns:1fr 1fr; }
+  .stat-card .num { font-size:1.4rem; }
+}
+
+/* ── PAGINATION ── */
+.pagination {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin:16px 0; font-size:0.82rem;
+}
+.pagination button {
+  padding:6px 12px; border:1.5px solid var(--chicago-navy); background:none;
+  color:var(--chicago-navy); border-radius:6px; cursor:pointer; font-weight:600;
+  font-family:inherit; font-size:0.78rem;
+}
+.pagination button:disabled { opacity:0.3; cursor:default; }
+.pagination button:hover:not(:disabled) { background:var(--chicago-navy); color:#fff; }
+.pagination .page-info { color:var(--text-dim); font-size:0.78rem; }
+.pagination select { padding:4px 8px; border-radius:4px; border:1.5px solid var(--border); font-size:0.75rem; }
+
+/* ── LAYOUT CENTERING ── */
+#main { max-width:1400px; margin:0 auto; width:100%; }
+@media (min-width:1600px) {
+  .section { max-width:1400px; margin-left:auto; margin-right:auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="shield">🏛️</div>
+    <h2>48th Ward Democratic Organization</h2>
+    <p>Internal Platform — Precinct Resources & Operations</p>
+    <input type="password" id="login-pw" placeholder="Access code" 
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn btn-primary" onclick="doLogin()" style="width:100%">Enter Platform</button>
+    <div id="login-err" style="color:var(--chicago-red);font-size:0.8rem;margin-top:8px;display:none">Invalid code</div>
+  </div>
+</div>
+
+<!-- ═══ TOP NAV ═══ -->
+<nav id="topnav" style="display:none">
+  <div class="brand">
+    <span class="star">★ ★ ★ ★</span>
+    <div>
+      <div>48th Ward Democratic Org</div>
+      <div class="city">City of Chicago · Edgewater · Andersonville · Uptown</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#dashboard" class="active" data-section="dashboard">📊 Dashboard</a>
+    <a href="#map" data-section="map">🗺️ Map</a>
+    <a href="#precincts" data-section="precincts">📍 Precincts</a>
+    <a href="#files" data-section="files">📁 Files</a>
+    <a href="#kb" data-section="kb">📚 Knowledge</a>
+    <a href="#analytics" data-section="analytics">📈 Analytics</a>
+    <a href="#admin" data-section="admin">⚙️ Admin</a>
+  </nav>
+  <div class="user-area">
+    <span class="badge" onclick="doLogout()" style="cursor:pointer">Logout</span>
+  </div>
+</nav>
+
+<div id="main" style="display:none">
+
+<!-- ═══ DASHBOARD ═══ -->
+<section class="section active" id="sec-dashboard">
+  <div class="section-header"><h2>📊 Command Dashboard</h2><p>Ward-wide overview, announcements, and quick actions</p></div>
+  
+  <div class="stat-grid" id="dash-stats"></div>
+  
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px">
+    <div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">📢 Announcements & Communications</div>
+        <div id="announcements-list"></div>
+        <button class="btn btn-outline btn-sm" onclick="showAnnouncementForm()" style="margin-top:12px">+ Post Announcement</button>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">⚡ Quick Actions</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="navTo('map')">🗺️ Open Ward Map</button>
+          <button class="btn btn-outline btn-sm" onclick="navTo('precincts')">📍 Browse Precincts</button>
+          <button class="btn btn-outline btn-sm" onclick="navTo('files')">📁 Upload Files</button>
+          <button class="btn btn-outline btn-sm" onclick="navTo('kb')">📚 Knowledge Base</button>
+          <button class="btn btn-gold btn-sm" onclick="exportAllCSV()">📥 Export All Data</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">🔗 Important Links</div>
+        <div style="font-size:0.82rem;display:flex;flex-direction:column;gap:6px">
+          <a href="https://the48thward.org" target="_blank" style="color:var(--chicago-navy)">the48thward.org — Ward Office</a>
+          <a href="https://www.chicago.gov" target="_blank" style="color:var(--chicago-navy)">Chicago.gov — City Services</a>
+          <a href="https://chicagoelections.gov" target="_blank" style="color:var(--chicago-navy)">Board of Elections</a>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="card-header">📥 Downloads</div>
+        <div style="font-size:0.82rem;display:flex;flex-direction:column;gap:6px">
+          <a href="data/48th_Ward_Master_Spreadsheet.xlsx" download style="color:var(--chicago-navy);font-weight:600">📊 Master Spreadsheet (.xlsx)</a>
+          <span style="font-size:0.7rem;color:var(--text-dim)">12 tabs — all precincts, businesses, schools, map outline</span>
+          <a href="#" onclick="exportAllCSV();return false" style="color:var(--chicago-navy)">📄 Export CSV (flat)</a>
+          <a href="https://github.com/diamitani/48th-ward-platform" target="_blank" style="color:var(--chicago-navy);font-size:0.72rem">🔗 GitHub Repo (private)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAP ═══ -->
+<section class="section" id="sec-map">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div class="section-header" style="margin-bottom:0;padding-bottom:0;border:none">
+      <h2>🗺️ Interactive Ward Map</h2><p>4,200+ mapped resources across 35 precincts</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <select id="map-precinct-filter" onchange="filterMapByPrecinct(this.value)" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border)">
+        <option value="">All Precincts</option>
+      </select>
+      <select id="map-type-filter" onchange="filterMapByType(this.value)" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border)">
+        <option value="">All Types</option>
+        <option value="business">Businesses</option>
+        <option value="residential">Residential</option>
+        <option value="religious">Religious</option>
+        <option value="school">Schools</option>
+        <option value="park">Parks</option>
+        <option value="government">Government</option>
+        <option value="service">Services</option>
+      </select>
+    </div>
+  </div>
+  <div id="map-container"><div id="map-view"></div></div>
+  <div id="map-legend" style="display:flex;gap:16px;padding:10px 0;font-size:0.72rem;flex-wrap:wrap">
+    <span>🟠 Businesses</span><span>🔵 Residential</span><span>🟣 Religious</span>
+    <span>🟢 Schools</span><span>🟢 Parks</span><span>🔴 Government</span><span>🩵 Services</span>
+  </div>
+</section>
+
+<!-- ═══ PRECINCTS ═══ -->
+<section class="section" id="sec-precincts">
+  <div class="section-header"><h2>📍 Precinct Directory</h2><p>Drill into any precinct — resources, contacts, game plans</p></div>
+  <div style="margin-bottom:16px">
+    <input type="text" id="precinct-search" placeholder="🔍 Search precincts by name, neighborhood, captain..." 
+      style="width:100%;max-width:400px;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem"
+      oninput="renderPrecinctGrid()">
+  </div>
+  <div id="precinct-grid" class="card-grid"></div>
+</section>
+
+<!-- ═══ FILES ═══ -->
+<section class="section" id="sec-files">
+  <div class="section-header">
+    <h2>📁 Document Library</h2>
+    <p>Canvassing materials, flyers, scripts, walk lists, and organizing resources</p>
+  </div>
+  <div style="display:flex;gap:12px;margin-bottom:16px">
+    <button class="btn btn-primary" onclick="document.getElementById('file-upload').click()">📤 Upload File</button>
+    <input type="file" id="file-upload" style="display:none" onchange="handleFileUpload(this)" multiple>
+    <select id="file-category-filter" onchange="renderFileList()" style="padding:8px 12px;border-radius:6px;border:1.5px solid var(--border)">
+      <option value="">All Categories</option>
+      <option value="canvassing">Canvassing</option>
+      <option value="flyers">Flyers & Literature</option>
+      <option value="scripts">Phone Scripts</option>
+      <option value="data">Data & Walk Lists</option>
+      <option value="training">Training Materials</option>
+      <option value="events">Event Materials</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+  <div id="file-list"></div>
+</section>
+
+<!-- ═══ KNOWLEDGE BASE ═══ -->
+<section class="section" id="sec-kb">
+  <div class="section-header"><h2>📚 Knowledge Base</h2><p>Organizing guides, best practices, FAQ, and how-to articles</p></div>
+  <div style="display:flex;gap:12px;margin-bottom:16px">
+    <input type="text" id="kb-search" placeholder="🔍 Search knowledge base..." 
+      style="flex:1;max-width:400px;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem"
+      oninput="renderKBList()">
+    <button class="btn btn-outline" onclick="showKBForm()">+ New Article</button>
+  </div>
+  <div id="kb-list"></div>
+</section>
+
+<!-- ═══ ANALYTICS ═══ -->
+<section class="section" id="sec-analytics">
+  <div class="section-header"><h2>📈 Analytics & Insights</h2><p>Voter data, turnout trends, resource distribution</p></div>
+  <div class="stat-grid" id="analytics-stats"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="card"><div class="card-header">Resources by Precinct</div><div class="chart-container"><canvas id="chart-resources"></canvas></div></div>
+    <div class="card"><div class="card-header">Resource Distribution by Type</div><div class="chart-container"><canvas id="chart-types"></canvas></div></div>
+    <div class="card"><div class="card-header">Top 10 Precincts — Business Density</div><div class="chart-container"><canvas id="chart-businesses"></canvas></div></div>
+    <div class="card"><div class="card-header">Precinct Resource Breakdown</div><div class="chart-container"><canvas id="chart-breakdown"></canvas></div></div>
+  </div>
+</section>
+
+<!-- ═══ ADMIN ═══ -->
+<section class="section" id="sec-admin">
+  <div class="section-header"><h2>⚙️ Administration</h2><p>Manage data, users, and platform settings</p></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="card">
+      <div class="card-header">📊 Data Management</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn btn-primary btn-sm" onclick="exportAllCSV()">📥 Export All Data (CSV)</button>
+        <button class="btn btn-outline btn-sm" onclick="importJSON()">📤 Import Data (JSON)</button>
+        <button class="btn btn-outline btn-sm" onclick="clearAllData()">🗑️ Reset Local Data</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">🔐 Platform Settings</div>
+      <div class="form-group">
+        <label>Access Code</label>
+        <input type="text" id="admin-access-code" placeholder="Change platform password" value="48forward">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="updateAccessCode()">Save Settings</button>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-header">➕ Quick Add Resource</div>
+      <div class="form-row">
+        <div class="form-group"><label>Type</label><select id="qa-type"><option value="business">Business</option><option value="contact">Contact</option><option value="school">School</option><option value="religious">Religious</option><option value="service">Service</option></select></div>
+        <div class="form-group"><label>Precinct</label><select id="qa-precinct"></select></div>
+        <div class="form-group"><label>Name</label><input type="text" id="qa-name"></div>
+        <div class="form-group"><label>Address</label><input type="text" id="qa-address"></div>
+        <div class="form-group"><label>Phone</label><input type="text" id="qa-phone"></div>
+        <div class="form-group"><label>Notes</label><input type="text" id="qa-notes"></div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="quickAddResource()" style="margin-top:8px">Add Resource</button>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div id="toast"></div>
+<div id="modal-container"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATA STORE
+// ═══════════════════════════════════════════════
+const ACCESS_CODE = '48forward';
+const STORAGE = {
+  announcements: '48th-announcements',
+  files: '48th-files',
+  kb: '48th-kb',
+  customData: '48th-custom-data',
+  settings: '48th-settings'
+};
+
+let MAP_DATA = { precincts:[], dashboard:[], resources:[], gamePlans:[], schools:[], religious:[], parks:[], government:[], services:[], contacts:[], categories:[] };
+let mapInstance = null;
+
+function ls(key, fallback='[]') {
+  try { return JSON.parse(localStorage.getItem(key) || fallback); }
+  catch(e) { return JSON.parse(fallback); }
+}
+function lsSet(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+// ═══════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════
+function doLogin() {
+  const pw = document.getElementById('login-pw').value.trim();
+  const code = (ls(STORAGE.settings, '{"code":"48forward"}')).code || ACCESS_CODE;
+  if (pw === code) {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('topnav').style.display = 'flex';
+    document.getElementById('main').style.display = 'flex';
+    sessionStorage.setItem('48th-auth','1');
+    initPlatform();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem('48th-auth');
+  location.reload();
+}
+if (sessionStorage.getItem('48th-auth') === '1') {
+  document.getElementById('login-overlay').style.display = 'none';
+  document.getElementById('topnav').style.display = 'flex';
+  document.getElementById('main').style.display = 'flex';
+  setTimeout(initPlatform, 100);
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+async function initPlatform() {
+  // Load map data
+  const base = window.location.pathname.replace(/\/[^\/]*$/, '/');
+  const keys = [
+    ['precincts','precincts.json'], ['dashboard','precinct_dashboard.json'],
+    ['resources','all_resources.json'], ['gamePlans','game_plans.json'],
+    ['schools','schools.json'], ['religious','religious.json'],
+    ['parks','parks.json'], ['government','government.json'],
+    ['services','services.json'], ['contacts','contacts.json'],
+    ['categories','business_categories.json']
+  ];
+  for (const [k,f] of keys) {
+    try { const r = await fetch(base + 'data/' + f); MAP_DATA[k] = await r.json(); }
+    catch(e) { console.warn('Failed to load', f); }
+  }
+  
+  renderDashboard();
+  renderPrecinctGrid();
+  renderFileList();
+  renderKBList();
+  renderAnalytics();
+  populateFilters();
+  
+  // Nav click handlers
+  document.querySelectorAll('#topnav nav a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      navTo(a.dataset.section);
+    });
+  });
+}
+
+function navTo(section) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#topnav nav a').forEach(a => a.classList.remove('active'));
+  const sec = document.getElementById('sec-' + section);
+  if (sec) sec.classList.add('active');
+  const nav = document.querySelector(`[data-section="${section}"]`);
+  if (nav) nav.classList.add('active');
+  
+  if (section === 'map') initMap();
+  if (section === 'analytics') renderAnalytics();
+}
+
+// ═══════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════
+function renderDashboard() {
+  const total = MAP_DATA.resources.length;
+  const biz = MAP_DATA.resources.filter(r=>r.source_table==='business').length;
+  const schools = MAP_DATA.resources.filter(r=>r.source_table==='school').length;
+  const religious = MAP_DATA.resources.filter(r=>r.source_table==='religious').length;
+  const parks = MAP_DATA.resources.filter(r=>r.source_table==='park').length;
+  const resUnits = MAP_DATA.resources.filter(r=>r.source_table==='residential').length;
+  
+  document.getElementById('dash-stats').innerHTML = `
+    <div class="stat-card"><div class="num">${MAP_DATA.precincts.length}</div><div class="lbl">Precincts</div></div>
+    <div class="stat-card"><div class="num">${total.toLocaleString()}</div><div class="lbl">Total Resources</div></div>
+    <div class="stat-card accent"><div class="num">${biz.toLocaleString()}</div><div class="lbl">Businesses</div></div>
+    <div class="stat-card"><div class="num">${schools}</div><div class="lbl">Schools</div></div>
+    <div class="stat-card"><div class="num">${religious}</div><div class="lbl">Religious Institutions</div></div>
+    <div class="stat-card"><div class="num">${parks}</div><div class="lbl">Parks</div></div>
+  `;
+  
+  renderAnnouncements();
+}
+
+// ═══════════════════════════════════════════════
+// ANNOUNCEMENTS
+// ═══════════════════════════════════════════════
+function renderAnnouncements() {
+  const announcements = ls(STORAGE.announcements);
+  
+  const container = document.getElementById('announcements-list');
+  container.innerHTML = announcements.slice().reverse().map(a => `
+    <div class="announcement ${a.pinned?'pinned':''}">
+      <div class="meta">${a.pinned?'📌 Pinned · ':''}${a.author} · ${a.date}</div>
+      <h4>${a.title}</h4>
+      <p>${a.body}</p>
+      <button class="btn btn-sm btn-outline" onclick="deleteAnnouncement(${a.id})" style="margin-top:4px">Remove</button>
+    </div>
+  `).join('');
+}
+
+function showAnnouncementForm() {
+  const html = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📢 Post Announcement</h3>
+        <div class="form-group"><label>Title</label><input id="ann-title"></div>
+        <div class="form-group"><label>Message</label><textarea id="ann-body" rows="4"></textarea></div>
+        <div class="form-group"><label>Author</label><input id="ann-author" value="Precinct Captain"></div>
+        <label><input type="checkbox" id="ann-pinned"> Pin to top</label>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary" onclick="postAnnouncement()">Post</button>
+          <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('modal-container').innerHTML = html;
+}
+function postAnnouncement() {
+  const announcements = ls(STORAGE.announcements);
+  announcements.push({
+    id: Date.now(),
+    title: document.getElementById('ann-title').value,
+    body: document.getElementById('ann-body').value,
+    author: document.getElementById('ann-author').value || 'Unknown',
+    date: new Date().toISOString().split('T')[0],
+    pinned: document.getElementById('ann-pinned').checked
+  });
+  lsSet(STORAGE.announcements, announcements);
+  closeModal();
+  renderAnnouncements();
+  toast('Announcement posted!');
+}
+function deleteAnnouncement(id) {
+  let announcements = ls(STORAGE.announcements);
+  announcements = announcements.filter(a => a.id !== id);
+  lsSet(STORAGE.announcements, announcements);
+  renderAnnouncements();
+  toast('Announcement removed');
+}
+
+// ═══════════════════════════════════════════════
+// MAP
+// ═══════════════════════════════════════════════
+function initMap() {
+  if (mapInstance) { mapInstance.resize(); return; }
+  
+  mapInstance = new maplibregl.Map({
+    container: 'map-view',
+    style: {
+      version:8,
+      sources:{osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256}},
+      layers:[{id:'osm',type:'raster',source:'osm'}]
+    },
+    center: [-87.664, 41.985],
+    zoom: 14
+  });
+  
+  mapInstance.on('load', () => {
+    const geojson = makeGeoJSON();
+    mapInstance.addSource('resources', {type:'geojson',data:geojson});
+    mapInstance.addLayer({
+      id:'resource-markers',type:'circle',source:'resources',
+      paint:{
+        'circle-radius':['interpolate',['linear'],['zoom'],13,3,16,7,18,10],
+        'circle-color':['get','color'],
+        'circle-opacity':0.85,
+        'circle-stroke-width':1.5,
+        'circle-stroke-color':'#fff'
+      }
+    });
+    
+    mapInstance.on('click','resource-markers',(e) => {
+      const p = e.features[0].properties;
+      new maplibregl.Popup({offset:25}).setLngLat(e.lngLat).setHTML(`
+        <strong>${p.name}</strong><br>
+        <span style="font-size:0.75rem;color:#666">${p.type||''} · ${p.address||''}</span><br>
+        <span style="font-size:0.7rem">Precinct ${p.precinct_id||'?'}</span>
+      `).addTo(mapInstance);
+    });
+    mapInstance.on('mouseenter','resource-markers',()=>mapInstance.getCanvas().style.cursor='pointer');
+    mapInstance.on('mouseleave','resource-markers',()=>mapInstance.getCanvas().style.cursor='');
+  });
+}
+
+const TYPE_COLORS = {
+  business:'#FF9800',residential:'#2196F3',religious:'#9C27B0',
+  school:'#4CAF50',park:'#388E3C',government:'#F44336',service:'#009688'
+};
+
+function makeGeoJSON(precinctFilter=null, typeFilter=null) {
+  let items = MAP_DATA.resources.filter(r=>r.lat&&r.lon);
+  if (precinctFilter) items = items.filter(r=>r.precinct_id===precinctFilter);
+  if (typeFilter) items = items.filter(r=>r.source_table===typeFilter);
+  return {
+    type:'FeatureCollection',
+    features:items.map(r=>({
+      type:'Feature',
+      geometry:{type:'Point',coordinates:[r.lon,r.lat]},
+      properties:{...r,color:TYPE_COLORS[r.source_table]||'#888'}
+    }))
+  };
+}
+
+function filterMapByPrecinct(val) {
+  if (!mapInstance || !mapInstance.getSource('resources')) return;
+  mapInstance.getSource('resources').setData(makeGeoJSON(val||null, document.getElementById('map-type-filter').value||null));
+}
+function filterMapByType(val) {
+  if (!mapInstance || !mapInstance.getSource('resources')) return;
+  mapInstance.getSource('resources').setData(makeGeoJSON(document.getElementById('map-precinct-filter').value||null, val||null));
+}
+
+// ═══════════════════════════════════════════════
+// PRECINCT GRID
+// ═══════════════════════════════════════════════
+let precinctPage = 0, precinctPageSize = 12;
+
+function renderPrecinctGrid() {
+  const q = (document.getElementById('precinct-search')?.value || '').toLowerCase();
+  let precincts = MAP_DATA.precincts.filter(p => 
+    !q || (p.name+' '+(p.neighborhood||'')).toLowerCase().includes(q)
+  );
+  const dash = MAP_DATA.dashboard;
+  const total = precincts.length;
+  const pages = Math.ceil(total / precinctPageSize);
+  if (precinctPage >= pages) precinctPage = Math.max(0, pages - 1);
+  precincts = precincts.slice(precinctPage * precinctPageSize, (precinctPage + 1) * precinctPageSize);
+  
+  const grid = document.getElementById('precinct-grid');
+  grid.innerHTML = precincts.map(p => {
+    const d = dash.find(x=>x.id===p.id) || {};
+    const total = (d.businesses||0)+(d.residential_buildings||0)+(d.religious_institutions||0)+(d.schools||0)+(d.parks||0)+(d.government_buildings||0)+(d.community_services||0);
+    return `
+    <div class="card" onclick="showPrecinctDetail('${p.id}')" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div><strong style="font-size:1.1rem;color:var(--chicago-navy)">${p.name}</strong>
+          <div style="font-size:0.78rem;color:var(--text-dim)">${p.neighborhood||'48th Ward'}</div>
+        </div>
+        <span class="badge badge-blue">${total} resources</span>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+        ${d.businesses?`<span class="badge badge-gold">${d.businesses} biz</span>`:''}
+        ${d.schools?`<span class="badge badge-green">${d.schools} schools</span>`:''}
+        ${d.religious_institutions?`<span class="badge badge-purple">${d.religious_institutions} faith</span>`:''}
+        ${d.parks?`<span class="badge badge-green">${d.parks} parks</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+  
+  // Pagination
+  let pag = grid.parentElement.querySelector('.pagination');
+  if (!pag) { pag = document.createElement('div'); pag.className = 'pagination'; grid.parentElement.appendChild(pag); }
+  pag.innerHTML = pages > 1 ? `
+    <button onclick="precinctPage=0;renderPrecinctGrid()" ${precinctPage===0?'disabled':''}>««</button>
+    <button onclick="precinctPage--;renderPrecinctGrid()" ${precinctPage===0?'disabled':''}>«</button>
+    <span class="page-info">Page ${precinctPage+1} of ${pages} (${total} precincts)</span>
+    <button onclick="precinctPage++;renderPrecinctGrid()" ${precinctPage>=pages-1?'disabled':''}>»</button>
+    <button onclick="precinctPage=${pages-1};renderPrecinctGrid()" ${precinctPage>=pages-1?'disabled':''}>»»</button>
+    <select onchange="precinctPageSize=parseInt(this.value);precinctPage=0;renderPrecinctGrid()">
+      <option value="12" ${precinctPageSize===12?'selected':''}>12/page</option>
+      <option value="24" ${precinctPageSize===24?'selected':''}>24/page</option>
+      <option value="35" ${precinctPageSize===35?'selected':''}>All</option>
+    </select>
+  ` : '';
+}
+
+function showPrecinctDetail(pid, page=0, pageSize=25) {
+  const p = MAP_DATA.precincts.find(x=>x.id===pid);
+  if (!p) return;
+  let resources = MAP_DATA.resources.filter(r=>r.precinct_id===pid);
+  const byType = {}; resources.forEach(r=>{ const t=r.source_table; byType[t]=(byType[t]||0)+1; });
+  const total = resources.length;
+  const pages = Math.ceil(total / pageSize);
+  if (page >= pages) page = Math.max(0, pages - 1);
+  resources = resources.slice(page * pageSize, (page + 1) * pageSize);
+  
+  const pag = pages > 1 ? `
+    <div class="pagination">
+      <button onclick="showPrecinctDetail('${pid}',0,${pageSize})" ${page===0?'disabled':''}>««</button>
+      <button onclick="showPrecinctDetail('${pid}',${page-1},${pageSize})" ${page===0?'disabled':''}>«</button>
+      <span class="page-info">${page+1}/${pages} (${total})</span>
+      <button onclick="showPrecinctDetail('${pid}',${page+1},${pageSize})" ${page>=pages-1?'disabled':''}>»</button>
+      <button onclick="showPrecinctDetail('${pid}',${pages-1},${pageSize})" ${page>=pages-1?'disabled':''}>»»</button>
+    </div>` : '';
+  
+  const html = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal" style="max-width:700px">
+        <h3>📍 ${p.name} — ${p.neighborhood||'48th Ward'}</h3>
+        <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          ${Object.entries(byType).map(([t,c])=>`<span class="badge badge-blue">${t}: ${c}</span>`).join('')}
+        </div>
+        <h4 style="margin-bottom:8px">Resources (${total})</h4>
+        ${pag}
+        <div style="max-height:400px;overflow-y:auto">
+          ${resources.map(r=>`
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:0.82rem">
+              <strong>${r.name}</strong> · ${r.type||''} · ${r.address||''}
+            </div>
+          `).join('')}
+        </div>
+        ${pag}
+        <div style="margin-top:12px">
+          <button class="btn btn-primary btn-sm" onclick="navTo('map');closeModal()">🗺️ View on Map</button>
+          <button class="btn btn-outline btn-sm" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('modal-container').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════
+// FILES
+// ═══════════════════════════════════════════════
+function handleFileUpload(input) {
+  const files = input.files;
+  const stored = ls(STORAGE.files);
+  for (const f of files) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      stored.push({
+        id: Date.now() + Math.random(),
+        name: f.name,
+        size: f.size,
+        type: f.type,
+        category: 'other',
+        data: e.target.result,
+        uploaded: new Date().toISOString()
+      });
+      lsSet(STORAGE.files, stored);
+      renderFileList();
+      toast(`Uploaded: ${f.name}`);
+    };
+    reader.readAsDataURL(f);
+  }
+  input.value = '';
+}
+
+function renderFileList() {
+  const files = ls(STORAGE.files);
+  const catFilter = document.getElementById('file-category-filter')?.value || '';
+  const filtered = catFilter ? files.filter(f=>f.category===catFilter) : files;
+  
+  document.getElementById('file-list').innerHTML = filtered.length === 0
+    ? '<div style="padding:20px;color:var(--text-dim);text-align:center">No files in this category</div>'
+    : filtered.map(f => `
+    <div class="file-card">
+      <div class="icon">${f.type?.includes('pdf')?'📄':f.type?.includes('doc')?'📝':f.type?.includes('image')?'🖼️':'📎'}</div>
+      <div class="info">
+        <strong>${f.name}</strong>
+        <small>${formatSize(f.size)} · ${f.category} · ${f.uploaded?.split('T')[0]||''}</small>
+      </div>
+      <div style="display:flex;gap:4px">
+        <button class="btn btn-outline btn-sm" onclick="downloadFile('${f.id}')">⬇️</button>
+        <select onchange="updateFileCategory('${f.id}',this.value)" style="padding:2px 6px;border-radius:4px;border:1px solid var(--border);font-size:0.7rem">
+          <option value="">Category</option>
+          <option value="canvassing" ${f.category==='canvassing'?'selected':''}>Canvassing</option>
+          <option value="flyers" ${f.category==='flyers'?'selected':''}>Flyers</option>
+          <option value="scripts" ${f.category==='scripts'?'selected':''}>Scripts</option>
+          <option value="data" ${f.category==='data'?'selected':''}>Data</option>
+          <option value="training" ${f.category==='training'?'selected':''}>Training</option>
+          <option value="events" ${f.category==='events'?'selected':''}>Events</option>
+          <option value="other" ${f.category==='other'?'selected':''}>Other</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="deleteFile('${f.id}')" style="color:var(--chicago-red)">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function downloadFile(id) {
+  const files = ls(STORAGE.files);
+  const f = files.find(x=>x.id==id);
+  if (!f) return;
+  const a = document.createElement('a');
+  a.href = f.data; a.download = f.name; a.click();
+}
+
+function updateFileCategory(id, cat) {
+  const files = ls(STORAGE.files);
+  const f = files.find(x=>x.id==id);
+  if (f) { f.category = cat; lsSet(STORAGE.files, files); }
+}
+
+function deleteFile(id) {
+  let files = ls(STORAGE.files);
+  files = files.filter(f=>f.id!=id);
+  lsSet(STORAGE.files, files);
+  renderFileList();
+  toast('File deleted');
+}
+
+// ═══════════════════════════════════════════════
+// KNOWLEDGE BASE
+// ═══════════════════════════════════════════════
+function renderKBList() {
+  let articles = ls(STORAGE.kb);
+  
+  const q = (document.getElementById('kb-search')?.value || '').toLowerCase();
+  const filtered = q ? articles.filter(a => 
+    (a.title+' '+a.tags.join(' ')+' '+a.excerpt).toLowerCase().includes(q)
+  ) : articles;
+  
+  document.getElementById('kb-list').innerHTML = filtered.map(a => `
+    <div class="kb-article" onclick="viewArticle(${a.id})">
+      <h4>${a.title}</h4>
+      <div class="excerpt">${a.excerpt.substring(0,150)}...</div>
+      <div>${a.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+function viewArticle(id) {
+  const articles = ls(STORAGE.kb);
+  const a = articles.find(x=>x.id==id);
+  if (!a) return;
+  document.getElementById('modal-container').innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📚 ${a.title}</h3>
+        <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:16px">${a.author} · ${a.date} · ${a.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div style="line-height:1.6;font-size:0.9rem">${a.body || a.excerpt}</div>
+        <button class="btn btn-outline btn-sm" onclick="closeModal()" style="margin-top:16px">Close</button>
+      </div>
+    </div>`;
+}
+
+function showKBForm() {
+  document.getElementById('modal-container').innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <h3>📝 New Knowledge Base Article</h3>
+        <div class="form-group"><label>Title</label><input id="kb-title"></div>
+        <div class="form-group"><label>Tags (comma-separated)</label><input id="kb-tags" placeholder="canvassing, training, outreach"></div>
+        <div class="form-group"><label>Excerpt</label><textarea id="kb-excerpt" rows="2"></textarea></div>
+        <div class="form-group"><label>Full Content</label><textarea id="kb-body" rows="6"></textarea></div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-primary" onclick="saveArticle()">Save</button>
+          <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+}
+function saveArticle() {
+  const articles = ls(STORAGE.kb);
+  articles.push({
+    id: Date.now(),
+    title: document.getElementById('kb-title').value,
+    tags: document.getElementById('kb-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    excerpt: document.getElementById('kb-excerpt').value,
+    body: document.getElementById('kb-body').value,
+    author: 'Editor',
+    date: new Date().toISOString().split('T')[0]
+  });
+  lsSet(STORAGE.kb, articles);
+  closeModal();
+  renderKBList();
+  toast('Article saved!');
+}
+
+// ═══════════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════════
+let chartInstances = {};
+function renderAnalytics() {
+  // Stats
+  const total = MAP_DATA.resources.length;
+  document.getElementById('analytics-stats').innerHTML = `
+    <div class="stat-card"><div class="num">${total.toLocaleString()}</div><div class="lbl">Mapped Resources</div></div>
+    <div class="stat-card"><div class="num">${MAP_DATA.precincts.length}</div><div class="lbl">Precincts</div></div>
+    <div class="stat-card accent"><div class="num">1,822</div><div class="lbl">Businesses</div></div>
+    <div class="stat-card"><div class="num">3,250</div><div class="lbl">Residential Buildings</div></div>
+  `;
+  
+  // Destroy old charts
+  Object.values(chartInstances).forEach(c => c.destroy());
+  chartInstances = {};
+  
+  // Resources by precinct (top 10)
+  const dash = MAP_DATA.dashboard.slice().sort((a,b)=> {
+    const ta = (a.businesses||0)+(a.schools||0)+(a.religious_institutions||0)+(a.parks||0);
+    const tb = (b.businesses||0)+(b.schools||0)+(b.religious_institutions||0)+(b.parks||0);
+    return tb-ta;
+  }).slice(0,10);
+  
+  chartInstances.c1 = new Chart(document.getElementById('chart-resources'),{
+    type:'bar',data:{
+      labels:dash.map(d=>d.id),
+      datasets:[
+        {label:'Businesses',data:dash.map(d=>d.businesses||0),backgroundColor:'#FF9800'},
+        {label:'Schools',data:dash.map(d=>d.schools||0),backgroundColor:'#4CAF50'},
+        {label:'Religious',data:dash.map(d=>d.religious_institutions||0),backgroundColor:'#9C27B0'},
+        {label:'Parks',data:dash.map(d=>d.parks||0),backgroundColor:'#388E3C'}
+      ]
+    },options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true}}}
+  });
+  
+  // Types pie
+  const byType = {};
+  MAP_DATA.resources.forEach(r=>{ byType[r.source_table]=(byType[r.source_table]||0)+1; });
+  chartInstances.c2 = new Chart(document.getElementById('chart-types'),{
+    type:'doughnut',data:{
+      labels:Object.keys(byType).map(t=>t.charAt(0).toUpperCase()+t.slice(1)),
+      datasets:[{data:Object.values(byType),backgroundColor:['#FF9800','#2196F3','#9C27B0','#4CAF50','#388E3C','#F44336','#009688']}]
+    },options:{responsive:true,maintainAspectRatio:false}
+  });
+  
+  // Business density
+  chartInstances.c3 = new Chart(document.getElementById('chart-businesses'),{
+    type:'bar',data:{
+      labels:dash.map(d=>d.id),
+      datasets:[{label:'Businesses',data:dash.map(d=>d.businesses||0),backgroundColor:'#FF9800',borderRadius:4}]
+    },options:{responsive:true,maintainAspectRatio:false}
+  });
+  
+  // Breakdown line
+  chartInstances.c4 = new Chart(document.getElementById('chart-breakdown'),{
+    type:'line',data:{
+      labels:MAP_DATA.precincts.map(p=>p.id),
+      datasets:[
+        {label:'Total Resources',data:MAP_DATA.precincts.map(p=>MAP_DATA.resources.filter(r=>r.precinct_id===p.id).length),borderColor:'#1A3A5C',tension:0.3,fill:false}
+      ]
+    },options:{responsive:true,maintainAspectRatio:false}
+  });
+}
+
+// ═══════════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════════
+function updateAccessCode() {
+  const code = document.getElementById('admin-access-code').value.trim();
+  if (code) {
+    lsSet(STORAGE.settings, {code});
+    toast('Access code updated!');
+  }
+}
+function quickAddResource() {
+  const type = document.getElementById('qa-type').value;
+  const data = {
+    id: Date.now(),
+    precinct_id: document.getElementById('qa-precinct').value,
+    name: document.getElementById('qa-name').value,
+    address: document.getElementById('qa-address').value,
+    phone: document.getElementById('qa-phone').value,
+    notes: document.getElementById('qa-notes').value,
+    source_table: type,
+    type: type,
+    lat: null, lon: null
+  };
+  if (!data.name || !data.precinct_id) { toast('Name and precinct required', true); return; }
+  
+  let custom = ls(STORAGE.customData);
+  custom.push(data);
+  lsSet(STORAGE.customData, custom);
+  MAP_DATA.resources.push(data);
+  toast('Resource added! Refresh map to see it.');
+  document.getElementById('qa-name').value = '';
+  document.getElementById('qa-address').value = '';
+  document.getElementById('qa-phone').value = '';
+  document.getElementById('qa-notes').value = '';
+}
+
+function exportAllCSV() {
+  let csv = 'type,precinct_id,name,address,phone,notes\n';
+  MAP_DATA.resources.forEach(r => {
+    csv += `${r.source_table},${r.precinct_id||''},"${(r.name||'').replace(/"/g,'""')}","${(r.address||'').replace(/"/g,'""')}","${r.phone||''}","${(r.notes||'').replace(/"/g,'""')}"\n`;
+  });
+  const blob = new Blob([csv],{type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = '48th-ward-export.csv'; a.click();
+  toast('CSV downloaded!');
+}
+
+function importJSON() {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = function() {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.resources) MAP_DATA.resources = [...MAP_DATA.resources, ...data.resources];
+        toast(`Imported ${data.resources?.length||0} resources`);
+      } catch(ex) { toast('Invalid JSON file', true); }
+    };
+    reader.readAsText(input.files[0]);
+  };
+  input.click();
+}
+
+function clearAllData() {
+  if (!confirm('Delete ALL local data (announcements, files, KB articles)? This cannot be undone.')) return;
+  Object.values(STORAGE).forEach(k => localStorage.removeItem(k));
+  toast('All local data cleared. Reloading...');
+  setTimeout(()=>location.reload(), 1000);
+}
+
+// ═══════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════
+function toast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = isError ? 'error' : 'success';
+  t.style.display = 'block';
+  setTimeout(()=>t.style.display='none', 3000);
+}
+function closeModal() { document.getElementById('modal-container').innerHTML = ''; }
+function formatSize(bytes) { return bytes < 1024 ? bytes+'B' : bytes < 1048576 ? (bytes/1024).toFixed(1)+'KB' : (bytes/1048576).toFixed(1)+'MB'; }
+
+function populateFilters() {
+  const sel = document.getElementById('map-precinct-filter');
+  if (sel) sel.innerHTML = '<option value="">All Precincts</option>' + MAP_DATA.precincts.map(p=>`<option value="${p.id}">${p.name} ${p.neighborhood?'- '+p.neighborhood:''}</option>`).join('');
+  const qa = document.getElementById('qa-precinct');
+  if (qa) qa.innerHTML = MAP_DATA.precincts.map(p=>`<option value="${p.id}">${p.id} - ${p.neighborhood||''}</option>`).join('');
+}
+</script>
+</body>
+</html>
